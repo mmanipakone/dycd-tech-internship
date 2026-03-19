@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>High School Tech Internship Framework — DYCD × UA × TKH</title>
+<style>
+/* ── RESET & VARS ── */
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --orange:#E84B00;
+  --navy:#0A2540;
+  --navy2:#0F3460;
+  --yellow:#FFE600;
+  --white:#fff;
+  --light:#f7f8fa;
+  --mid:#e2e8f0;
+  --text:#1a1a2e;
+  --sidebar:260px;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--light);color:var(--text);line-height:1.6;}
+
+/* ── TOPBAR ── */
+#topbar{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  background:var(--navy);
+  height:56px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 24px;
+  box-shadow:0 2px 16px rgba(0,0,0,0.3);
+}
+#topbar-left{display:flex;align-items:center;gap:14px;}
+#topbar-logo{width:32px;height:32px;background:var(--orange);border-radius:4px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;color:white;letter-spacing:-1px;flex-shrink:0;}
+#topbar-title{font-size:13px;font-weight:700;color:var(--white);letter-spacing:0.3px;}
+#topbar-title span{color:var(--yellow);}
+#topbar-right{display:flex;gap:10px;}
+.topbar-btn{
+  background:var(--orange);color:white;border:none;
+  padding:7px 16px;border-radius:4px;font-size:12px;font-weight:700;
+  cursor:pointer;text-transform:uppercase;letter-spacing:0.5px;
+  text-decoration:none;display:inline-block;
+  transition:background 0.2s;
+}
+.topbar-btn:hover{background:#c94000;}
+.topbar-btn.secondary{background:rgba(255,255,255,0.1);}
+.topbar-btn.secondary:hover{background:rgba(255,255,255,0.2);}
+#menu-toggle{display:none;background:none;border:none;cursor:pointer;color:white;font-size:22px;padding:4px;}
+
+/* ── SIDEBAR ── */
+#sidebar{
+  position:fixed;top:56px;left:0;bottom:0;width:var(--sidebar);
+  background:var(--navy2);overflow-y:auto;z-index:900;
+  padding:16px 0;
+  scrollbar-width:thin;scrollbar-color:var(--orange) transparent;
+  transition:transform 0.3s;
+}
+#sidebar::-webkit-scrollbar{width:4px;}
+#sidebar::-webkit-scrollbar-thumb{background:var(--orange);border-radius:2px;}
+.nav-section-label{
+  font-size:9px;font-weight:800;color:rgba(255,255,255,0.4);
+  text-transform:uppercase;letter-spacing:1.5px;
+  padding:10px 20px 4px;margin-top:6px;
+}
+.nav-item{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 20px;
+  font-size:12.5px;font-weight:600;color:rgba(255,255,255,0.75);
+  cursor:pointer;transition:all 0.2s;text-decoration:none;
+  border-left:3px solid transparent;
+}
+.nav-item:hover{background:rgba(255,255,255,0.07);color:white;border-left-color:var(--orange);}
+.nav-item.active{background:rgba(232,75,0,0.15);color:var(--yellow);border-left-color:var(--orange);}
+.nav-item .nav-num{
+  width:22px;height:22px;background:var(--orange);color:white;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:9px;font-weight:800;flex-shrink:0;
+}
+.nav-item .nav-num.scenario{background:var(--navy);}
+.nav-item .nav-label{flex:1;line-height:1.3;}
+
+/* ── MAIN CONTENT ── */
+#main{
+  margin-left:var(--sidebar);
+  padding-top:56px;
+  min-height:100vh;
+}
+.section{
+  max-width:960px;margin:0 auto;
+  padding:50px 40px 40px;
+  border-bottom:1px solid var(--mid);
+}
+.section:last-child{border-bottom:none;}
+
+/* ── HERO ── */
+#hero{
+  margin-left:var(--sidebar);
+  padding-top:56px;
+  background:var(--navy);
+  position:relative;overflow:hidden;
+}
+.hero-photo{
+  width:100%;height:340px;object-fit:cover;object-position:center 30%;
+  display:block;opacity:0.35;
+}
+.hero-overlay{
+  position:absolute;top:0;left:0;right:0;bottom:0;
+  background:linear-gradient(135deg,rgba(10,37,64,0.95) 0%,rgba(15,52,96,0.7) 100%);
+  display:flex;flex-direction:column;justify-content:center;
+  padding:60px 60px 50px;
+}
+.hero-badge{
+  display:inline-block;
+  background:var(--yellow);color:var(--navy);
+  font-size:10px;font-weight:800;letter-spacing:2px;
+  text-transform:uppercase;padding:5px 14px;
+  margin-bottom:20px;width:fit-content;
+  border-radius:2px;
+}
+.hero-h1{
+  font-size:46px;font-weight:900;color:var(--orange);
+  line-height:1.05;text-transform:uppercase;
+  margin-bottom:14px;
+  text-shadow:0 2px 20px rgba(0,0,0,0.3);
+}
+.hero-sub{font-size:18px;font-weight:300;color:rgba(255,255,255,0.85);margin-bottom:20px;}
+.hero-divider{width:80px;height:4px;background:var(--yellow);margin-bottom:20px;}
+.hero-desc{font-size:14px;color:rgba(255,255,255,0.7);max-width:560px;line-height:1.7;margin-bottom:28px;}
+.hero-tags{display:flex;flex-wrap:wrap;gap:10px;}
+.hero-tag{
+  background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.85);
+  border:1px solid rgba(255,255,255,0.2);
+  padding:6px 16px;border-radius:20px;font-size:12px;font-weight:600;
+}
+
+/* ── SECTION HEADINGS ── */
+.sec-eyebrow{
+  font-size:10px;font-weight:800;color:var(--orange);
+  text-transform:uppercase;letter-spacing:2px;
+  margin-bottom:8px;display:flex;align-items:center;gap:8px;
+}
+.sec-eyebrow::before{content:'';width:24px;height:2px;background:var(--orange);display:inline-block;}
+.sec-h1{
+  font-size:30px;font-weight:900;color:var(--navy);
+  text-transform:uppercase;line-height:1.1;margin-bottom:6px;
+}
+.sec-h1 span{color:var(--orange);}
+.sec-bar{width:50px;height:3px;background:var(--yellow);margin-bottom:18px;}
+.sec-intro{font-size:14.5px;color:#444;line-height:1.7;margin-bottom:22px;}
+
+/* ── CALLOUT ── */
+.callout{
+  background:var(--navy);color:white;
+  border-left:5px solid var(--yellow);
+  padding:14px 18px;border-radius:0 6px 6px 0;
+  margin:16px 0;font-size:13.5px;line-height:1.6;
+}
+.callout strong{color:var(--yellow);}
+.callout-orange{
+  background:var(--orange);color:white;
+  padding:14px 18px;border-radius:6px;
+  margin:16px 0;font-size:13.5px;line-height:1.6;
+}
+.callout-orange strong{font-weight:900;}
+.callout-yellow{
+  background:var(--yellow);color:var(--navy);
+  padding:12px 18px;border-radius:6px;
+  margin:12px 0;font-size:13px;font-weight:600;line-height:1.6;
+}
+
+/* ── GRID ── */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
+@media(max-width:700px){.grid-2,.grid-3{grid-template-columns:1fr;}}
+
+/* ── STAT BOXES ── */
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0;}
+@media(max-width:600px){.stat-row{grid-template-columns:1fr 1fr;}}
+.stat-box{
+  background:var(--navy);color:white;
+  border-radius:8px;padding:20px 16px;text-align:center;
+  transition:transform 0.2s;
+}
+.stat-box:hover{transform:translateY(-3px);}
+.stat-num{font-size:36px;font-weight:900;color:var(--yellow);line-height:1;display:block;}
+.stat-label{font-size:11px;color:rgba(255,255,255,0.75);margin-top:6px;text-transform:uppercase;letter-spacing:0.5px;}
+
+/* ── PHASE CARDS ── */
+.phase-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0;}
+@media(max-width:700px){.phase-grid{grid-template-columns:1fr 1fr;}}
+.phase-card{
+  background:var(--navy);border-radius:8px;overflow:hidden;
+  transition:transform 0.2s,box-shadow 0.2s;
+  cursor:default;
+}
+.phase-card:hover{transform:translateY(-4px);box-shadow:0 8px 28px rgba(10,37,64,0.25);}
+.phase-card-hd{
+  background:var(--orange);padding:10px 14px;
+  font-weight:800;font-size:11px;text-transform:uppercase;color:white;letter-spacing:0.8px;
+}
+.phase-card-week{font-size:9.5px;opacity:0.8;display:block;margin-top:2px;font-weight:400;}
+.phase-card-body{padding:12px 14px;font-size:12px;color:rgba(255,255,255,0.85);line-height:1.6;}
+.phase-card-body ul{padding-left:16px;}
+.phase-card-body li{margin-bottom:3px;}
+
+/* ── SKILL CARDS ── */
+.skill-box{
+  border:2px solid var(--orange);border-radius:8px;padding:14px 16px;
+  transition:background 0.2s,transform 0.2s;
+}
+.skill-box:hover{background:rgba(232,75,0,0.04);transform:translateY(-2px);}
+.skill-box h4{
+  font-size:12px;font-weight:800;color:var(--orange);
+  text-transform:uppercase;margin-bottom:8px;letter-spacing:0.5px;
+}
+.skill-box ul{padding-left:16px;font-size:12.5px;line-height:1.6;}
+
+/* ── TABLE ── */
+.tbl-wrap{overflow-x:auto;margin:14px 0;}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+th{background:var(--navy);color:white;padding:10px 12px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;}
+td{padding:9px 12px;border-bottom:1px solid var(--mid);}
+tr:nth-child(even) td{background:var(--light);}
+tr:hover td{background:#edf2fb;}
+
+/* ── WEEK TIMELINE TABLE ── */
+.week-timeline{border-collapse:collapse;font-size:12px;}
+.week-timeline th{background:var(--navy);color:var(--yellow);}
+.week-timeline .wk-label{background:var(--orange);color:white;font-weight:800;text-align:center;}
+.week-timeline td{background:#0e2f54;color:rgba(255,255,255,0.85);border:1px solid rgba(255,255,255,0.07);}
+.week-timeline tr:nth-child(even) td{background:#0b2644;}
+
+/* ── ACCORDION ── */
+.accordion{margin:10px 0;}
+.accordion-item{border:1px solid var(--mid);border-radius:6px;overflow:hidden;margin-bottom:6px;}
+.accordion-hd{
+  background:var(--navy2);color:white;
+  padding:13px 18px;cursor:pointer;
+  display:flex;justify-content:space-between;align-items:center;
+  font-weight:700;font-size:13.5px;
+  transition:background 0.2s;
+}
+.accordion-hd:hover{background:#1a4070;}
+.accordion-hd .chevron{font-size:16px;transition:transform 0.3s;}
+.accordion-hd.open .chevron{transform:rotate(180deg);}
+.accordion-body{
+  display:none;padding:16px 18px;background:white;font-size:13px;line-height:1.65;
+}
+.accordion-body.open{display:block;}
+.accordion-body ul{padding-left:18px;}
+.accordion-body li{margin-bottom:4px;}
+
+/* ── SCENARIO HEADER ── */
+.scenario-hd{
+  background:var(--navy);border-radius:8px 8px 0 0;
+  padding:22px 28px;margin-bottom:0;
+}
+.scenario-company{
+  font-size:10px;font-weight:800;color:var(--yellow);
+  text-transform:uppercase;letter-spacing:2px;margin-bottom:5px;
+}
+.scenario-title{font-size:26px;font-weight:900;color:var(--orange);text-transform:uppercase;line-height:1.1;}
+.scenario-sub{font-size:13px;color:rgba(255,255,255,0.65);margin-top:6px;}
+.scenario-body{
+  background:white;border:1px solid var(--mid);border-top:none;
+  border-radius:0 0 8px 8px;padding:24px 28px;
+}
+
+/* ── ROLE TAG ── */
+.tag{
+  display:inline-block;background:var(--yellow);color:var(--navy);
+  font-size:10px;font-weight:800;padding:3px 10px;border-radius:12px;
+  margin:2px;text-transform:uppercase;letter-spacing:0.5px;
+}
+.tag-orange{background:var(--orange);color:white;}
+.tag-navy{background:var(--navy);color:white;}
+
+/* ── 1:1 TEMPLATE ── */
+.checkin-section{
+  border:2px solid var(--orange);border-radius:8px;padding:16px 20px;
+  margin-bottom:12px;
+}
+.checkin-section h4{
+  font-size:12px;font-weight:800;color:var(--orange);
+  text-transform:uppercase;margin-bottom:10px;letter-spacing:0.5px;
+}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:8px;}
+.field-group label{font-size:11px;font-weight:700;color:#666;display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px;}
+.field-group input,.field-group textarea,.field-group select{
+  width:100%;border:1.5px solid var(--mid);border-radius:4px;
+  padding:8px 10px;font-size:13px;color:var(--text);
+  font-family:inherit;transition:border-color 0.2s;background:var(--light);
+}
+.field-group input:focus,.field-group textarea:focus{
+  outline:none;border-color:var(--orange);background:white;
+}
+.field-group textarea{min-height:70px;resize:vertical;}
+.rating-row{display:flex;gap:8px;align-items:center;margin:6px 0;}
+.rating-row label{font-size:12.5px;min-width:140px;color:#555;}
+.rating-btn{
+  width:34px;height:34px;border:2px solid var(--navy);background:white;
+  border-radius:50%;font-size:12px;font-weight:700;cursor:pointer;
+  transition:all 0.15s;color:var(--navy);
+}
+.rating-btn:hover,.rating-btn.selected{background:var(--orange);border-color:var(--orange);color:white;}
+.progress-table td{padding:6px 10px;vertical-align:middle;}
+.goal-status{width:80px;}
+.goal-status select{padding:4px 6px;border:1.5px solid var(--mid);border-radius:4px;font-size:11px;}
+.print-btn{
+  background:var(--orange);color:white;border:none;
+  padding:10px 24px;border-radius:5px;font-size:13px;font-weight:700;
+  cursor:pointer;display:flex;align-items:center;gap:8px;
+  margin-top:14px;transition:background 0.2s;
+}
+.print-btn:hover{background:#c94000;}
+
+/* ── PROGRESS BAR ── */
+.progress-bar-wrap{background:var(--mid);border-radius:10px;height:8px;margin:4px 0 10px;}
+.progress-bar{background:var(--orange);height:8px;border-radius:10px;transition:width 0.6s;}
+
+/* ── PHOTO ── */
+.photo-grid{display:grid;gap:8px;margin:16px 0;}
+.photo-grid-2{grid-template-columns:1fr 1fr;}
+.photo-grid-3{grid-template-columns:1fr 1fr 1fr;}
+.photo-grid img{width:100%;height:160px;object-fit:cover;object-position:center;border-radius:6px;display:block;}
+@media(max-width:600px){.photo-grid-2,.photo-grid-3{grid-template-columns:1fr 1fr;}}
+
+/* ── ORANGE LIST ── */
+.orange-list{list-style:none;padding:0;margin:10px 0;}
+.orange-list li{
+  padding:8px 12px 8px 20px;border-left:3px solid var(--orange);
+  margin-bottom:5px;background:var(--light);border-radius:0 4px 4px 0;
+  font-size:13.5px;line-height:1.5;
+}
+.orange-list li strong{color:var(--orange);}
+
+/* ── DELIVERABLE CARD ── */
+.deliverable-list{list-style:none;padding:0;}
+.deliverable-list li{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:10px 0;border-bottom:1px solid var(--mid);font-size:13.5px;
+}
+.deliverable-list li:last-child{border-bottom:none;}
+.deliverable-list .check{
+  width:22px;height:22px;background:var(--orange);color:white;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:11px;flex-shrink:0;margin-top:1px;
+}
+
+/* ── SCROLL TO TOP ── */
+#scroll-top{
+  position:fixed;bottom:30px;right:30px;z-index:999;
+  width:42px;height:42px;background:var(--orange);color:white;
+  border:none;border-radius:50%;cursor:pointer;
+  font-size:18px;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 14px rgba(232,75,0,0.4);
+  opacity:0;transition:opacity 0.3s,transform 0.2s;pointer-events:none;
+}
+#scroll-top.visible{opacity:1;pointer-events:all;}
+#scroll-top:hover{transform:scale(1.1);}
+
+/* ── BACK SECTION ── */
+.nav-back{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:12px;font-weight:700;color:var(--orange);
+  text-decoration:none;margin-bottom:20px;cursor:pointer;
+}
+.nav-back:hover{color:#c94000;}
+
+/* ── FOOTER ── */
+#footer{
+  margin-left:var(--sidebar);
+  background:var(--navy);color:rgba(255,255,255,0.6);
+  text-align:center;padding:26px;font-size:12px;line-height:1.8;
+}
+#footer strong{color:var(--yellow);}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  :root{--sidebar:0px;}
+  #sidebar{transform:translateX(-260px);width:260px;}
+  #sidebar.open{transform:translateX(0);}
+  #main,#hero,#footer{margin-left:0;}
+  #menu-toggle{display:block;}
+  .hero-overlay{padding:40px 24px 32px;}
+  .hero-h1{font-size:30px;}
+  .section{padding:32px 20px 24px;}
+  .phase-grid{grid-template-columns:1fr 1fr;}
+  .stat-row{grid-template-columns:1fr 1fr;}
+  .field-row{grid-template-columns:1fr;}
+  .scenario-hd,.scenario-body{padding:18px 20px;}
+}
+
+/* ── PRINT OVERRIDE ── */
+@media print{
+  #sidebar,#topbar,#scroll-top,#footer,#menu-toggle{display:none!important;}
+  #main,#hero{margin-left:0;padding-top:0;}
+  .section{padding:20px 0;border-bottom:1px solid #eee;}
+  .accordion-body{display:block!important;}
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<nav id="topbar">
+  <div id="topbar-left">
+    <button id="menu-toggle" onclick="toggleSidebar()">☰</button>
+    <div id="topbar-logo">TI</div>
+    <div id="topbar-title">Tech Internship Framework &nbsp;<span>SYEP</span></div>
+  </div>
+  <div id="topbar-right">
+    <a class="topbar-btn secondary" href="TechInternship_Booklet.pdf" download>⬇ Download PDF</a>
+    <a class="topbar-btn secondary" href="TechInternship_Playbook.md" download>⬇ Markdown</a>
+    <a class="topbar-btn" href="FinalPresentation_Template.pptx" download>⬇ PPTX Template</a>
+  </div>
+</nav>
+
+<!-- SIDEBAR -->
+<aside id="sidebar">
+  <div class="nav-section-label">Framework</div>
+  <a class="nav-item active" href="#why-host" onclick="setActive(this)">
+    <div class="nav-num">1</div><span class="nav-label">Why Host a Tech Intern</span>
+  </a>
+  <a class="nav-item" href="#portrait" onclick="setActive(this)">
+    <div class="nav-num">2</div><span class="nav-label">Portrait of an Intern</span>
+  </a>
+  <a class="nav-item" href="#journey" onclick="setActive(this)">
+    <div class="nav-num">3</div><span class="nav-label">6-Week Journey</span>
+  </a>
+  <a class="nav-item" href="#schedule" onclick="setActive(this)">
+    <div class="nav-num">4</div><span class="nav-label">Weekly Schedule</span>
+  </a>
+  <a class="nav-item" href="#skills" onclick="setActive(this)">
+    <div class="nav-num">5</div><span class="nav-label">Technical Skills</span>
+  </a>
+  <a class="nav-item" href="#professional" onclick="setActive(this)">
+    <div class="nav-num">6</div><span class="nav-label">Professional Skills</span>
+  </a>
+  <a class="nav-item" href="#supervision" onclick="setActive(this)">
+    <div class="nav-num">7</div><span class="nav-label">Supervision & Tools</span>
+  </a>
+  <a class="nav-item" href="#compliance" onclick="setActive(this)">
+    <div class="nav-num">8</div><span class="nav-label">Compliance</span>
+  </a>
+  <a class="nav-item" href="#checkin" onclick="setActive(this)">
+    <div class="nav-num">9</div><span class="nav-label">1:1 Check-In Template</span>
+  </a>
+  <div class="nav-section-label" style="margin-top:10px;">Project Scenarios</div>
+  <a class="nav-item" href="#scenario-a" onclick="setActive(this)">
+    <div class="nav-num scenario">A</div><span class="nav-label">Cybersecurity Tabletop</span>
+  </a>
+  <a class="nav-item" href="#scenario-b" onclick="setActive(this)">
+    <div class="nav-num scenario">B</div><span class="nav-label">Data Insights Dashboard</span>
+  </a>
+  <a class="nav-item" href="#scenario-c" onclick="setActive(this)">
+    <div class="nav-num scenario">C</div><span class="nav-label">Workflow Automation</span>
+  </a>
+</aside>
+
+<!-- HERO -->
+<div id="hero">
+  <img class="hero-photo" src="file:///Users/michaelmanipakone/Documents/DYCD/Schools/GLO/Industry Board Meeting.jpg" alt="Industry Board Meeting" onerror="this.style.display='none'">
+  <div class="hero-overlay">
+    <div class="hero-badge">DYCD × Urban Assembly × The Knowledge House</div>
+    <h1 class="hero-h1">High School Tech<br>Internship Framework</h1>
+    <p class="hero-sub">Summer Youth Employment Program — SYEP</p>
+    <div class="hero-divider"></div>
+    <p class="hero-desc">A comprehensive implementation guide for host employers, site supervisors, and program coordinators managing high school interns in technology-focused experiences.</p>
+    <div class="hero-tags">
+      <span class="hero-tag">⚡ 6-Week Program</span>
+      <span class="hero-tag">📍 25 hrs/week On-Site</span>
+      <span class="hero-tag">3 Project Scenarios</span>
+      <span class="hero-tag">1:1 Check-In Template</span>
+      <span class="hero-tag">DYCD Compliant</span>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<main id="main">
+
+  <!-- ── SECTION 1: WHY HOST ── -->
+  <section class="section" id="why-host">
+    <div class="sec-eyebrow">Overview</div>
+    <h2 class="sec-h1">Why Host a <span>Tech Intern?</span></h2>
+    <div class="sec-bar"></div>
+    <p class="sec-intro">Hosting a SYEP tech intern creates a mutually beneficial experience — interns gain real-world skills and you gain fresh perspectives, expanded capacity, and a pipeline of diverse future talent.</p>
+
+    <div class="stat-row">
+      <div class="stat-box"><span class="stat-num">6</span><span class="stat-label">Weeks Structured Learning</span></div>
+      <div class="stat-box"><span class="stat-num">25</span><span class="stat-label">Hours Per Week On-Site</span></div>
+      <div class="stat-box"><span class="stat-num">150</span><span class="stat-label">Total Professional Hours</span></div>
+    </div>
+
+    <div class="grid-2" style="gap:24px;margin-top:22px;">
+      <div>
+        <h3 style="font-size:14px;font-weight:800;color:var(--navy);text-transform:uppercase;margin-bottom:10px;letter-spacing:0.5px;">Benefits to Your Organization</h3>
+        <ul class="orange-list">
+          <li>Fresh perspectives and innovative ideas on real projects</li>
+          <li>Expanded project capacity at no direct labor cost</li>
+          <li>Early access to NYC's diverse talent pipeline</li>
+          <li>Strengthen community ties &amp; corporate social responsibility</li>
+          <li>Develop leadership skills in your team as supervisors</li>
+          <li>Support DYCD's mission to connect youth to opportunity</li>
+        </ul>
+      </div>
+      <div>
+        <div class="photo-grid photo-grid-2">
+          <img src="file:///Users/michaelmanipakone/Documents/DYCD/Schools/GLO/Industry Board Meeting 2.jpg" alt="Industry Board Meeting" onerror="this.style.display='none'">
+          <img src="file:///Users/michaelmanipakone/Documents/DYCD/Schools/BASE/Apple PD.jpg" alt="Students" onerror="this.style.display='none'">
+        </div>
+        <div class="callout" style="margin-top:12px;">
+          <strong>⚡ Impact Statement:</strong> Each intern you host represents a NYC student gaining career-ready tech skills that can change their economic trajectory.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 2: PORTRAIT ── -->
+  <section class="section" id="portrait">
+    <div class="sec-eyebrow">Who You're Hosting</div>
+    <h2 class="sec-h1">Portrait of a <span>SYEP Tech Intern</span></h2>
+    <div class="sec-bar"></div>
+
+    <div class="grid-3" style="gap:18px;">
+      <div style="background:var(--navy);border-radius:8px;padding:20px;color:white;">
+        <div style="font-size:20px;margin-bottom:8px;">🧑‍💻</div>
+        <h4 style="font-size:12px;font-weight:800;color:var(--orange);text-transform:uppercase;margin-bottom:10px;letter-spacing:0.5px;">Who They Are</h4>
+        <ul style="padding-left:16px;font-size:13px;line-height:1.65;color:rgba(255,255,255,0.85);">
+          <li>NYC high school students, ages 14–21</li>
+          <li>Enrolled in SYEP via DYCD programs</li>
+          <li>Tech-curious and motivated to learn</li>
+          <li>Varying levels of prior tech exposure</li>
+          <li>Supported by UA and TKH staff</li>
+        </ul>
+      </div>
+      <div style="background:var(--orange);border-radius:8px;padding:20px;color:white;">
+        <div style="font-size:20px;margin-bottom:8px;">💡</div>
+        <h4 style="font-size:12px;font-weight:800;color:white;text-transform:uppercase;margin-bottom:10px;letter-spacing:0.5px;">What They Bring</h4>
+        <ul style="padding-left:16px;font-size:13px;line-height:1.65;">
+          <li>Enthusiasm and desire to prove themselves</li>
+          <li>Digital fluency — grew up with technology</li>
+          <li>Unique community insights</li>
+          <li>Diversity of thought and perspective</li>
+        </ul>
+      </div>
+      <div style="border:2px solid var(--orange);border-radius:8px;padding:20px;">
+        <div style="font-size:20px;margin-bottom:8px;">🤝</div>
+        <h4 style="font-size:12px;font-weight:800;color:var(--orange);text-transform:uppercase;margin-bottom:10px;letter-spacing:0.5px;">What They Need</h4>
+        <ul style="padding-left:16px;font-size:13px;line-height:1.65;">
+          <li>Clear structure and onboarding</li>
+          <li>Dedicated supervisor for 1:1 check-ins</li>
+          <li>Authentic, meaningful project work</li>
+          <li>Regular feedback and encouragement</li>
+          <li>Safe, professional environment</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="photo-grid photo-grid-3" style="margin-top:18px;">
+      <img src="file:///Users/michaelmanipakone/Documents/DYCD/Schools/LGJ/Pfizer Career Event.jpg" alt="Pfizer Career Event" onerror="this.style.display='none'">
+      <img src="file:///Users/michaelmanipakone/Documents/DYCD/Schools/BAL/Alumni Panel.jpg" alt="Alumni Panel" onerror="this.style.display='none'">
+      <img src="file:///Users/michaelmanipakone/Documents/DYCD/Schools/SPA/Winter Showcase 1.jpg" alt="Winter Showcase" onerror="this.style.display='none'">
+    </div>
+  </section>
+
+  <!-- ── SECTION 3: 6-WEEK JOURNEY ── -->
+  <section class="section" id="journey">
+    <div class="sec-eyebrow">Program Structure</div>
+    <h2 class="sec-h1">The <span>6-Week Journey</span></h2>
+    <div class="sec-bar"></div>
+
+    <div class="phase-grid">
+      <div class="phase-card">
+        <div class="phase-card-hd" style="background:#E84B00;">Phase 1 — Explore<span class="phase-card-week">Weeks 1–2</span></div>
+        <div class="phase-card-body"><ul>
+          <li>Onboarding &amp; company overview</li>
+          <li>Meet the team &amp; org culture</li>
+          <li>Orientation to tools &amp; systems</li>
+          <li>Introduction to internship project</li>
+          <li>Set goals &amp; learning objectives</li>
+          <li>Complete DYCD compliance docs</li>
+        </ul></div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-card-hd" style="background:#c94000;">Phase 2 — Build<span class="phase-card-week">Weeks 3–4</span></div>
+        <div class="phase-card-body"><ul>
+          <li>Deep dive into project work</li>
+          <li>Research, data collection, prototyping</li>
+          <li>Apply technical skills to real problem</li>
+          <li>Collaborative team work sessions</li>
+          <li>Receive &amp; incorporate feedback</li>
+          <li>Mid-program check-in with supervisor</li>
+        </ul></div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-card-hd" style="background:#a83500;">Phase 3 — Apply<span class="phase-card-week">Week 5</span></div>
+        <div class="phase-card-body"><ul>
+          <li>Finalize project deliverables</li>
+          <li>Prepare final presentation</li>
+          <li>Practice presenting to peers</li>
+          <li>Refine based on feedback</li>
+          <li>Document findings and process</li>
+        </ul></div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-card-hd" style="background:var(--navy2);">Phase 4 — Reflect<span class="phase-card-week">Week 5 (cont.)</span></div>
+        <div class="phase-card-body"><ul>
+          <li>Personal reflection journal</li>
+          <li>Skills growth assessment</li>
+          <li>Career pathway exploration</li>
+          <li>Identify mentors &amp; next steps</li>
+        </ul></div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-card-hd" style="background:#0a2540;">Phase 5 — Launch<span class="phase-card-week">Week 6</span></div>
+        <div class="phase-card-body"><ul>
+          <li>Final presentation to leadership</li>
+          <li>Demo or showcase deliverables</li>
+          <li>Receive formal evaluation + feedback</li>
+          <li>Celebrate accomplishments</li>
+          <li>Complete exit survey (DYCD)</li>
+        </ul></div>
+      </div>
+      <div class="phase-card" style="background:var(--light);">
+        <div class="phase-card-hd" style="background:var(--yellow);color:var(--navy);">Key Deliverables<span class="phase-card-week" style="color:#333;">All 6 Weeks</span></div>
+        <div class="phase-card-body" style="color:var(--navy);"><ul>
+          <li>Weekly 1:1 check-in notes</li>
+          <li>Timesheets (DYCD compliance)</li>
+          <li>Mid-program reflection</li>
+          <li>Final project + presentation</li>
+          <li>Evaluation rubric</li>
+          <li>Exit survey + certificate</li>
+        </ul></div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>💡 Supervisor Tip:</strong> Each phase builds on the last. Interns who have a strong Explore phase are better prepared to Build confidently. Don't rush onboarding — it sets the foundation for everything.
+    </div>
+  </section>
+
+  <!-- ── SECTION 4: WEEKLY SCHEDULE ── -->
+  <section class="section" id="schedule">
+    <div class="sec-eyebrow">Time Structure</div>
+    <h2 class="sec-h1">Weekly Schedule &amp; <span>25-Hour Breakdown</span></h2>
+    <div class="sec-bar"></div>
+    <p class="sec-intro">Interns work <strong>25 hours per week</strong> on-site. Below is the recommended daily structure. Supervisors should customize based on project needs while maintaining the core learning structure.</p>
+
+    <div class="tbl-wrap">
+      <table class="week-timeline">
+        <thead><tr>
+          <th class="wk-label" style="width:110px;">Time Block</th>
+          <th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td class="wk-label">9:00–9:30am</td>
+            <td>Morning Stand-up</td><td>Morning Stand-up</td><td>Morning Stand-up</td><td>Morning Stand-up</td><td>Morning Stand-up</td>
+          </tr>
+          <tr>
+            <td class="wk-label">9:30–11:30am</td>
+            <td>Skill Building / Training</td><td>Project Work Block</td><td>Collaborative Workshop</td><td>Project Work Block</td><td>Presentation Practice</td>
+          </tr>
+          <tr>
+            <td class="wk-label">11:30–12:30pm</td>
+            <td colspan="5" style="text-align:center;opacity:0.6;font-style:italic;">Lunch Break</td>
+          </tr>
+          <tr>
+            <td class="wk-label">12:30–2:30pm</td>
+            <td>Project Work / Research</td><td>1:1 Check-In (rotate)</td><td>Guest Speaker / Site Tour</td><td>Project Work / Research</td><td>Weekly Wrap-Up + Reflection</td>
+          </tr>
+          <tr>
+            <td class="wk-label">2:30–3:00pm</td>
+            <td>Documentation / Journal</td><td>Documentation / Journal</td><td>Documentation / Journal</td><td>Documentation / Journal</td><td>Goal-Setting for Next Week</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid-2" style="gap:22px;margin-top:22px;">
+      <div>
+        <h3 style="font-size:13px;font-weight:800;color:var(--navy);text-transform:uppercase;margin-bottom:10px;">Weekly Hours Breakdown</h3>
+        <div id="progress-bars">
+          <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px;"><span><strong>Project Work</strong></span><span style="color:var(--orange);font-weight:700;">10 hrs — 40%</span></div>
+          <div class="progress-bar-wrap"><div class="progress-bar" style="width:40%;"></div></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px;"><span>Skill Building &amp; Training</span><span style="color:var(--orange);font-weight:700;">5 hrs — 20%</span></div>
+          <div class="progress-bar-wrap"><div class="progress-bar" style="width:20%;"></div></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px;"><span>Team Collaboration</span><span style="color:var(--orange);font-weight:700;">4 hrs — 16%</span></div>
+          <div class="progress-bar-wrap"><div class="progress-bar" style="width:16%;"></div></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px;"><span>Professional Development</span><span style="color:var(--orange);font-weight:700;">3 hrs — 12%</span></div>
+          <div class="progress-bar-wrap"><div class="progress-bar" style="width:12%;"></div></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px;"><span>Reflection &amp; Documentation</span><span style="color:var(--orange);font-weight:700;">2 hrs — 8%</span></div>
+          <div class="progress-bar-wrap"><div class="progress-bar" style="width:8%;"></div></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px;"><span>1:1 Check-In &amp; Feedback</span><span style="color:var(--orange);font-weight:700;">1 hr — 4%</span></div>
+          <div class="progress-bar-wrap"><div class="progress-bar" style="width:4%;"></div></div>
+        </div>
+      </div>
+      <div>
+        <div class="callout">
+          <strong>⚠️ DYCD Requirement:</strong> All interns must maintain 25 hours/week on-site. Attendance and punctuality are tracked as compliance requirements. Maximum 3 absences before review.
+        </div>
+        <div class="callout-yellow" style="margin-top:12px;">
+          📋 <strong>Timesheets</strong> must be signed by the supervisor weekly and submitted to the program coordinator by end of business Friday.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 5: SKILLS ── -->
+  <section class="section" id="skills">
+    <div class="sec-eyebrow">Technical Competencies</div>
+    <h2 class="sec-h1">Technical Skills <span>Framework</span></h2>
+    <div class="sec-bar"></div>
+    <p class="sec-intro">Interns are exposed to foundational and applied technical skills organized into four core tracks. Projects should target skills across multiple tracks.</p>
+
+    <div class="grid-2" style="gap:16px;">
+      <div class="skill-box">
+        <h4>🔐 Cybersecurity</h4>
+        <ul>
+          <li>Threat analysis fundamentals</li>
+          <li>Login/access data review</li>
+          <li>Incident documentation</li>
+          <li>Risk identification &amp; classification</li>
+          <li>Data privacy concepts</li>
+          <li>Tabletop exercise facilitation</li>
+        </ul>
+      </div>
+      <div class="skill-box">
+        <h4>📊 Data Analytics</h4>
+        <ul>
+          <li>Spreadsheet analysis (Excel/Sheets)</li>
+          <li>Data cleaning &amp; organization</li>
+          <li>Chart and graph creation</li>
+          <li>Dashboard building (Tableau/Power BI)</li>
+          <li>Data storytelling</li>
+          <li>Insight presentation</li>
+        </ul>
+      </div>
+      <div class="skill-box">
+        <h4>⚙️ Workflow Automation</h4>
+        <ul>
+          <li>Process mapping</li>
+          <li>Zapier / Make.com basics</li>
+          <li>Google Apps Script</li>
+          <li>Automation trigger design</li>
+          <li>Testing &amp; debugging</li>
+          <li>Efficiency measurement</li>
+        </ul>
+      </div>
+      <div class="skill-box">
+        <h4>🖥️ Web &amp; Coding</h4>
+        <ul>
+          <li>HTML/CSS fundamentals</li>
+          <li>Basic Python / JavaScript</li>
+          <li>GitHub &amp; version control</li>
+          <li>No-code tool exploration</li>
+          <li>UI/UX prototyping</li>
+          <li>Technical writing</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="margin-top:22px;">
+      <h3 style="font-size:14px;font-weight:800;color:var(--navy);text-transform:uppercase;margin-bottom:14px;">Approved Project Tracks</h3>
+      <div class="accordion">
+        <div class="accordion-item">
+          <div class="accordion-hd" onclick="toggleAccordion(this)">
+            <span>🔐 Track A — Cybersecurity Investigation</span><span class="chevron">▼</span>
+          </div>
+          <div class="accordion-body">
+            Interns analyze a simulated dataset for suspicious access patterns, document findings in a friction log, and present incident response recommendations to company leadership. <a href="#scenario-a" style="color:var(--orange);font-weight:700;">→ See full scenario on page A</a>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-hd" onclick="toggleAccordion(this)">
+            <span>📊 Track B — Data Insights Dashboard</span><span class="chevron">▼</span>
+          </div>
+          <div class="accordion-body">
+            Interns clean, analyze, and visualize a business dataset to surface actionable insights. The deliverable is a visual dashboard with 3–5 key findings presented to leadership. <a href="#scenario-b" style="color:var(--orange);font-weight:700;">→ See full scenario on page B</a>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-hd" onclick="toggleAccordion(this)">
+            <span>⚙️ Track C — Workflow Automation Prototype</span><span class="chevron">▼</span>
+          </div>
+          <div class="accordion-body">
+            Interns map an existing manual business process, identify bottlenecks, and build an automation prototype using accessible no-code/low-code tools. Before/after time savings are measured and presented. <a href="#scenario-c" style="color:var(--orange);font-weight:700;">→ See full scenario on page C</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 6: PROFESSIONAL SKILLS ── -->
+  <section class="section" id="professional">
+    <div class="sec-eyebrow">Workplace Development</div>
+    <h2 class="sec-h1">Workplace &amp; <span>Professional Skills</span></h2>
+    <div class="sec-bar"></div>
+    <p class="sec-intro">Beyond technical skills, SYEP interns develop essential professional competencies. Supervisors play a key role in modeling and reinforcing these behaviors.</p>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Skill Area</th><th>How to Build It</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Communication</strong></td><td>Daily stand-ups, written updates, presentations</td></tr>
+          <tr><td><strong>Collaboration</strong></td><td>Team roles, shared deliverables, group problem-solving</td></tr>
+          <tr><td><strong>Time Management</strong></td><td>Weekly goals, task tracking, deadline accountability</td></tr>
+          <tr><td><strong>Critical Thinking</strong></td><td>Project challenges, peer review, retrospectives</td></tr>
+          <tr><td><strong>Professionalism</strong></td><td>Dress code conversations, meeting etiquette, email writing</td></tr>
+          <tr><td><strong>Adaptability</strong></td><td>Pivoting project scope, handling ambiguity</td></tr>
+          <tr><td><strong>Confidence</strong></td><td>Presenting work, sharing opinions, taking ownership</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout-yellow" style="margin-top:14px;">
+      📌 <strong>Career Exploration:</strong> Dedicate at least 30 minutes per week for interns to explore tech career pathways, job titles, and salary data. This builds long-term motivation.
+    </div>
+  </section>
+
+  <!-- ── SECTION 7: SUPERVISION ── -->
+  <section class="section" id="supervision">
+    <div class="sec-eyebrow">For Supervisors</div>
+    <h2 class="sec-h1">Supervision &amp; <span>Implementation Tools</span></h2>
+    <div class="sec-bar"></div>
+
+    <div class="grid-2" style="gap:24px;align-items:start;">
+      <div>
+        <h3 style="font-size:13px;font-weight:800;color:var(--navy);text-transform:uppercase;margin-bottom:12px;">Supervision Best Practices</h3>
+        <div class="accordion">
+          <div class="accordion-item">
+            <div class="accordion-hd" onclick="toggleAccordion(this)">Before the Internship Starts<span class="chevron">▼</span></div>
+            <div class="accordion-body">
+              <ul>
+                <li>Prepare a structured onboarding plan for Week 1</li>
+                <li>Set up workstation, accounts, and tool access</li>
+                <li>Identify a backup supervisor in case of absence</li>
+                <li>Brief your team on hosting a high school intern</li>
+                <li>Review DYCD guidelines and compliance requirements</li>
+              </ul>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-hd" onclick="toggleAccordion(this)">During the Internship<span class="chevron">▼</span></div>
+            <div class="accordion-body">
+              <ul>
+                <li>Conduct weekly 1:1 check-ins using the template</li>
+                <li>Provide specific, actionable feedback regularly</li>
+                <li>Give interns real project ownership — not busy work</li>
+                <li>Introduce interns to professionals across the org</li>
+                <li>Track attendance and sign timesheets weekly</li>
+                <li>Contact program coordinator if issues arise</li>
+              </ul>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-hd" onclick="toggleAccordion(this)">Effective Feedback Framework<span class="chevron">▼</span></div>
+            <div class="accordion-body">
+              <ul>
+                <li><strong>Strengths first:</strong> Start with what's working well</li>
+                <li><strong>Be specific:</strong> "Your chart was clear because..." not "good job"</li>
+                <li><strong>Growth-oriented:</strong> Frame challenges as opportunities</li>
+                <li><strong>Action-focused:</strong> Always include a next step</li>
+                <li><strong>Regular cadence:</strong> Don't save everything for Week 6</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-size:13px;font-weight:800;color:var(--navy);text-transform:uppercase;margin-bottom:12px;">Recommended Digital Tools</h3>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Category</th><th>Tools</th></tr></thead>
+            <tbody>
+              <tr><td>Productivity</td><td>Google Workspace, Microsoft 365</td></tr>
+              <tr><td>Project Mgmt</td><td>Trello, Notion, Asana</td></tr>
+              <tr><td>Communication</td><td>Slack, Google Meet, Zoom</td></tr>
+              <tr><td>Data Analysis</td><td>Excel, Google Sheets, Tableau Public</td></tr>
+              <tr><td>Automation</td><td>Zapier, Make.com, Apps Script</td></tr>
+              <tr><td>Design</td><td>Canva, Google Slides, PowerPoint</td></tr>
+              <tr><td>Version Control</td><td>GitHub (free public repos)</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 8: COMPLIANCE ── -->
+  <section class="section" id="compliance">
+    <div class="sec-eyebrow">DYCD Requirements</div>
+    <h2 class="sec-h1">Compliance &amp; <span>Documentation</span></h2>
+    <div class="sec-bar"></div>
+
+    <div class="callout-orange" style="margin-bottom:18px;">
+      <strong>⚠️ ALL of the following are required</strong> to remain in compliance with DYCD SYEP guidelines. Non-compliance may result in program removal.
+    </div>
+
+    <div class="grid-2" style="gap:22px;">
+      <div>
+        <h3 style="font-size:13px;font-weight:800;color:var(--navy);text-transform:uppercase;margin-bottom:10px;">Onboarding Checklist</h3>
+        <ul class="orange-list">
+          <li>☐ &nbsp;Review and sign DYCD participation agreement</li>
+          <li>☐ &nbsp;Complete safety orientation &amp; emergency contact form</li>
+          <li>☐ &nbsp;Receive workstation / device assignment</li>
+          <li>☐ &nbsp;Set up company email and required accounts</li>
+          <li>☐ &nbsp;Tour the office and meet team members</li>
+          <li>☐ &nbsp;Review internship project brief and goals</li>
+          <li>☐ &nbsp;Sign technology use and confidentiality agreement</li>
+          <li>☐ &nbsp;Set Week 1 goals with supervisor</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="font-size:13px;font-weight:800;color:var(--navy);text-transform:uppercase;margin-bottom:10px;">Required Documentation</h3>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Document</th><th>Due</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Weekly Timesheets</strong></td><td>Every Friday</td></tr>
+              <tr><td><strong>Attendance Log</strong></td><td>Daily on-site</td></tr>
+              <tr><td><strong>Mid-Program Evaluation</strong></td><td>End of Week 3</td></tr>
+              <tr><td><strong>Final Evaluation Rubric</strong></td><td>End of Week 6</td></tr>
+              <tr><td><strong>Exit Survey (intern)</strong></td><td>Last day</td></tr>
+              <tr><td><strong>Incident Reports</strong></td><td>Within 24 hrs</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout" style="margin-top:12px;font-size:12.5px;">
+          <strong>Safety:</strong> Interns must never be left unsupervised. Zero tolerance for harassment or discrimination. All incidents reported to DYCD within 24 hours.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 9: 1:1 CHECK-IN TEMPLATE ── -->
+  <section class="section" id="checkin">
+    <div class="sec-eyebrow">Interactive Template</div>
+    <h2 class="sec-h1">Weekly 1:1 <span>Check-In Template</span></h2>
+    <div class="sec-bar"></div>
+    <p class="sec-intro">Use this template for your weekly one-on-one meetings. Meetings should be <strong>20–30 minutes</strong>, in a private space. The intern leads — your role is to listen, guide, and support.</p>
+
+    <div id="checkin-form">
+      <div class="checkin-section">
+        <h4>📋 Meeting Logistics</h4>
+        <div class="field-row">
+          <div class="field-group"><label>Intern Name</label><input type="text" placeholder="Enter intern's full name"></div>
+          <div class="field-group"><label>Supervisor Name</label><input type="text" placeholder="Enter supervisor name"></div>
+          <div class="field-group"><label>Week #</label><input type="number" min="1" max="6" placeholder="1–6"></div>
+          <div class="field-group"><label>Date</label><input type="date"></div>
+        </div>
+      </div>
+
+      <div class="checkin-section">
+        <h4>⭐ Wins &amp; Accomplishments This Week</h4>
+        <p style="font-size:12px;color:#666;margin-bottom:8px;font-style:italic;">What are you most proud of this week?</p>
+        <div class="field-group"><textarea placeholder="Describe wins, accomplishments, or breakthroughs this week..."></textarea></div>
+      </div>
+
+      <div class="checkin-section">
+        <h4>🚧 Challenges &amp; Blockers</h4>
+        <p style="font-size:12px;color:#666;margin-bottom:8px;font-style:italic;">What has been difficult? What do you need help with?</p>
+        <div class="field-group"><textarea placeholder="Describe challenges, frustrations, or areas where you need support..."></textarea></div>
+      </div>
+
+      <div class="checkin-section">
+        <h4>📊 Skill Self-Rating</h4>
+        <p style="font-size:12px;color:#666;margin-bottom:10px;font-style:italic;">Rate yourself honestly — 1 = Needs Work, 5 = Excellent</p>
+        <div class="rating-row">
+          <label>Communication</label>
+          <div id="rate-comm" class="rate-group" style="display:flex;gap:6px;">
+            <button class="rating-btn" onclick="rateSkill('rate-comm',1)">1</button>
+            <button class="rating-btn" onclick="rateSkill('rate-comm',2)">2</button>
+            <button class="rating-btn" onclick="rateSkill('rate-comm',3)">3</button>
+            <button class="rating-btn" onclick="rateSkill('rate-comm',4)">4</button>
+            <button class="rating-btn" onclick="rateSkill('rate-comm',5)">5</button>
+          </div>
+        </div>
+        <div class="rating-row">
+          <label>Technical Skills</label>
+          <div id="rate-tech" class="rate-group" style="display:flex;gap:6px;">
+            <button class="rating-btn" onclick="rateSkill('rate-tech',1)">1</button>
+            <button class="rating-btn" onclick="rateSkill('rate-tech',2)">2</button>
+            <button class="rating-btn" onclick="rateSkill('rate-tech',3)">3</button>
+            <button class="rating-btn" onclick="rateSkill('rate-tech',4)">4</button>
+            <button class="rating-btn" onclick="rateSkill('rate-tech',5)">5</button>
+          </div>
+        </div>
+        <div class="rating-row">
+          <label>Project Progress</label>
+          <div id="rate-proj" class="rate-group" style="display:flex;gap:6px;">
+            <button class="rating-btn" onclick="rateSkill('rate-proj',1)">1</button>
+            <button class="rating-btn" onclick="rateSkill('rate-proj',2)">2</button>
+            <button class="rating-btn" onclick="rateSkill('rate-proj',3)">3</button>
+            <button class="rating-btn" onclick="rateSkill('rate-proj',4)">4</button>
+            <button class="rating-btn" onclick="rateSkill('rate-proj',5)">5</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="checkin-section">
+        <h4>🎯 Goals for Next Week</h4>
+        <p style="font-size:12px;color:#666;margin-bottom:8px;font-style:italic;">Set 2–3 specific, measurable goals for the coming week.</p>
+        <div class="field-group" style="margin-bottom:8px;"><label>Goal 1</label><input type="text" placeholder="What will you accomplish by next week?"></div>
+        <div class="field-group" style="margin-bottom:8px;"><label>Goal 2</label><input type="text" placeholder="Another specific, measurable goal..."></div>
+        <div class="field-group"><label>Goal 3 (optional)</label><input type="text" placeholder="Optional third goal..."></div>
+      </div>
+
+      <div class="checkin-section">
+        <h4>💬 Intern Feedback to Supervisor</h4>
+        <p style="font-size:12px;color:#666;margin-bottom:8px;font-style:italic;">Is there anything you need more support with? Any questions or concerns?</p>
+        <div class="field-group"><textarea placeholder="Share any feedback, concerns, or questions for your supervisor..."></textarea></div>
+      </div>
+
+      <div class="checkin-section">
+        <h4>📝 Supervisor Notes &amp; Action Items</h4>
+        <div class="field-group"><textarea placeholder="Supervisor: Add your notes, observations, and action items here..."></textarea></div>
+      </div>
+
+      <button class="print-btn" onclick="window.print()">🖨️ Print / Save This Check-In</button>
+    </div>
+  </section>
+
+  <!-- ── SCENARIO A ── -->
+  <section class="section" id="scenario-a">
+    <div class="sec-eyebrow">Project Scenario A — Cybersecurity</div>
+    <div class="scenario-hd">
+      <div class="scenario-company">Track A · NovaBank (Fintech Startup) · 4–5 Interns · 6 Weeks</div>
+      <div class="scenario-title">Cybersecurity Tabletop Investigation + Friction Log</div>
+      <div class="scenario-sub">Interns act as a junior cybersecurity task force analyzing suspicious login activity and documenting incident response recommendations.</div>
+    </div>
+    <div class="scenario-body">
+      <div class="grid-2" style="gap:22px;align-items:start;">
+        <div>
+          <h4 style="font-size:13px;font-weight:800;color:var(--orange);text-transform:uppercase;margin-bottom:8px;">Company Background</h4>
+          <p style="font-size:13.5px;line-height:1.65;margin-bottom:14px;">NovaBank is a growing NYC-based fintech startup providing digital banking services to underserved communities. As usage has grown, so have concerns about unauthorized access and potential fraud in the login system.</p>
+
+          <div class="callout" style="margin-bottom:14px;">
+            <strong>⚡ Intern Mission:</strong> Analyze the simulated login dataset, identify indicators of compromise (IOC), build a friction log documenting suspicious events, and present findings and recommendations to NovaBank leadership.
+          </div>
+
+          <h4 style="font-size:13px;font-weight:800;color:var(--orange);text-transform:uppercase;margin-bottom:8px;">Dataset Options</h4>
+          <ul class="orange-list">
+            <li><strong>Option A — Kaggle:</strong> Free "Login Attempts" dataset. 10,000+ rows: User ID, Timestamp, IP, Location, Status, Device</li>
+            <li><strong>Option B — Anonymized Internal:</strong> Sanitized NovaBank test environment export. Same fields, NYC-context matched</li>
+            <li><strong>Option C — Simulated:</strong> Program coordinator's 500-row dataset pre-loaded with anomalies</li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="font-size:13px;font-weight:800;color:var(--orange);text-transform:uppercase;margin-bottom:8px;">Team Roles</h4>
+          <div class="tbl-wrap">
+            <table style="font-size:12px;">
+              <thead><tr><th>Role</th><th>Responsibilities</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Security Analyst</strong></td><td>Reviews login data for anomalies; flags suspicious IPs, times, patterns</td></tr>
+                <tr><td><strong>Data Analyst</strong></td><td>Cleans dataset; builds charts showing login trends over time</td></tr>
+                <tr><td><strong>Research Lead</strong></td><td>Researches brute force, credential stuffing; documents background</td></tr>
+                <tr><td><strong>Documentation Lead</strong></td><td>Maintains friction log with all flagged events</td></tr>
+                <tr><td><strong>Presentation Lead</strong></td><td>Compiles findings; creates and presents the final slide deck</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h4 style="font-size:13px;font-weight:800;color:var(--orange);text-transform:uppercase;margin:14px 0 8px;">Friction Log Template</h4>
+          <div class="tbl-wrap">
+            <table style="font-size:11px;">
+              <thead><tr><th>#</th><th>Timestamp</th><th>User ID</th><th>IP Address</th><th>Event Type</th><th>Severity</th><th>Notes</th></tr></thead>
+              <tbody>
+                <tr><td>1</td><td>MM/DD HH:MM</td><td>USR-####</td><td>xxx.x.x.x</td><td>Failed Login</td><td>⚠️ Medium</td><td>3x in 2 min</td></tr>
+                <tr><td>2</td><td colspan="6" style="color:#aaa;font-style:italic;">Add entries as discovered...</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="font-size:11px;color:#777;margin-top:4px;">🔴 Critical = 10+ fails/5 min &nbsp;|&nbsp; ⚠️ Medium = unusual IP &nbsp;|&nbsp; 🟡 Low = off-hours</p>
+        </div>
+      </div>
+
+      <h4 style="font-size:13px;font-weight:800;color:var(--orange);text-transform:uppercase;margin:20px 0 10px;">6-Week Project Structure</h4>
+      <div class="tbl-wrap">
+        <table style="font-size:12.5px;">
+          <thead><tr><th style="width:70px;">Week</th><th style="width:90px;">Phase</th><th>Activities</th><th>Deliverable</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Week 1</strong></td><td>Explore</td><td>Onboard to NovaBank; intro to cybersecurity; explore dataset structure; assign team roles</td><td>Roles assigned; dataset downloaded; 1-page cybersecurity summary</td></tr>
+            <tr><td><strong>Week 2</strong></td><td>Explore + Build</td><td>Deep-read dataset; identify columns; research brute force & credential stuffing; begin flagging anomalies; create spreadsheet filters</td><td>Annotated dataset; research notes on attack types</td></tr>
+            <tr><td><strong>Week 3</strong></td><td>Build</td><td>Systematic anomaly detection: sort by IP, User ID, timestamp; identify top 10 suspicious accounts; build login trend charts; begin friction log</td><td>Top 10 suspicious accounts report; login trend chart; friction log draft</td></tr>
+            <tr><td><strong>Week 4</strong></td><td>Build + Apply</td><td>Complete friction log; research incident response best practices; draft 3–5 security recommendations; mid-program check-in</td><td>Complete friction log; recommendations draft; mid-program self-assessment</td></tr>
+            <tr><td><strong>Week 5</strong></td><td>Apply</td><td>Synthesize findings into presentation; create visuals (charts, friction log summary, severity heatmap); practice presenting; write 1-page executive summary</td><td>Final slide deck draft; executive summary; practice presentation</td></tr>
+            <tr><td><strong>Week 6</strong></td><td>Launch + Reflect</td><td>Final presentation to NovaBank leadership (15–20 min); Q&amp;A; formal evaluation; team celebration; DYCD exit survey; personal reflection</td><td>Final presentation delivered; evaluation signed; exit survey; reflection</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="grid-2" style="gap:18px;margin-top:18px;">
+        <div>
+          <h4 style="font-size:13px;font-weight:800;color:var(--orange);text-transform:uppercase;margin-bottom:10px;">Final Deliverables</h4>
+          <ul class="deliverable-list">
+            <li><div class="check">✓</div><div><strong>Complete Friction Log</strong> — all suspicious events documented</div></li>
+            <li><div class="check">✓</div><div><strong>Anomaly Analysis Report</strong> — top 10 flagged accounts with evidence</div></li>
+            <li><div class="check">✓</div><div><strong>Login Trend Visualizations</strong> — charts over 30-day window</div></li>
+            <li><div class="check">✓</div><div><strong>3–5 Security Recommendations</strong> — specific, actionable steps</div></li>
+            <li><div class="check">✓</div><div><strong>Final Presentation Deck</strong> — 10–15 slides, presented to leadership</div></li>
+            <li><div class="check">✓</div><div><strong>1-Page Executive Summary</strong> — written for non-technical audience</div></li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="font-size:13px;font-weight:800;color:var(--navy);text-transform:uppercase;margin-bottom:8px;">Key Learning Outcomes</h4>
+          <div style="line-height:2;">
+            <span class="tag">Data Analysis</span><span class="tag">Threat Identification</span><span class="tag">Documentation</span><span class="tag">Risk Assessment</span><span class="tag">Presentation Skills</span><span class="tag">Cybersecurity Concepts</span><span class="tag">Teamwork</span><span class="tag">Critical Thinking</span>
+          </div>
+          <div class="callout" style="margin-top:12px;font-size:12.5px;">
+            <strong>⚡ Supervisor Note:</strong> Interns are NOT expected to access real systems. All work uses the provided/downloaded dataset only. Emphasize ethical boundaries throughout.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SCENARIO B ── -->
+  <section class="section" id="scenario-b">
+    <div class="sec-eyebrow">Project Scenario B — Data Analytics</div>
+    <div class="scenario-hd">
+      <div class="scenario-company">Track B · GreenCart (E-Commerce Grocery Startup) · 4–5 Interns · 6 Weeks</div>
+      <div class="scenario-title">Data Insights Dashboard</div>
+      <div class="scenario-sub">Interns analyze order and delivery data to build a visual dashboard surfacing key business insights for leadership decision-making.</div>
+    </div>
+    <div class="scenario-body">
+      <div class="grid-2" style="gap:22px;align-items:start;">
+        <div>
+          <h4 style="font-size:13px;font-weight:800;color:var(--orange);text-transform:uppercase;margin-bottom:8px;">Company Background</h4>
+          <p style="font-size:13.5px;line-height:1.65;margin-bottom:12px;">GreenCart is a fast-growing NYC-based e-commerce grocery startup focused on providing fresh, affordable produce to underserved neighborhoods. Leadership needs better visibility into order trends, delivery performance, and customer satisfaction.</p>
+
+          <div class="callout" style="margin-bottom:14px;">
+            <strong>⚡ Intern Mission:</strong> Clean and analyze GreenCart's order/delivery dataset (100–500 rows), identify 3–5 key business insights, and build an interactive visual dashboard.
+          </div>
+
+          <h4 style="font-size:13px;font-weight:800;color:var(--orange);text-transform:uppercase;margin-bottom:8px;">The Dataset — GreenCart_Orders_Q2.csv</h4>
+          <div class="tbl-wrap">
+            <table style="font-size:12px;">
+              <thead><tr><th>Column</th><th>Description</th><th>Example</th></tr></thead>
+              <tbody>
+                <tr><td>Order ID</td><td>Unique identifier</td><td>GC-2024-00234</td></tr>
+                <tr><td>Product Category</td><td>Type of product</td><td>Vegetables, Fruits</td></tr>
+                <tr><td>Order Date</td><td>Date placed</td><td>2024-04-15</td></tr>
+                <tr><td>Delivery Time (hrs)</td><td>Hrs to delivery</td><td>3.5</td></tr>
+                <tr><td>City/Borough</td><td>Customer borough</td><td>Bronx, Brooklyn</td></tr>
+                <tr><td>Order Status</td><td>Completion</td><td>Delivered, Returned</td></tr>
+                <tr><td>Customer Rating</td><td>1–5 stars</td><td>4</td></tr>
+                <tr><td>Order Value ($)</td><td>Total amount</td><td>$47.50</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div>
+          <h4 style="font-size:13px;font-weight:800;color:var(--orange);text-transform:uppercase;margin-bottom:8px;">Team Roles</h4>
+          <div class="tbl-wrap">
+            <table style="font-size:12px;">
+              <thead><tr><th>Role</th><th>Responsibilities</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Data Analyst</strong></td><td>Cleans dataset; removes duplicates; standardizes formatting; pivot tables</td></tr>
+                <tr><td><strong>Visualization Lead</strong></td><td>Creates charts; builds the visual dashboard in Excel/Tableau/Power BI</td></tr>
+                <tr><td><strong>Insights Analyst</strong></td><td>Interprets charts; writes 3–5 key findings in plain language</td></tr>
+                <tr><td><strong>Research Lead</strong></td><td>Benchmarks GreenCart vs. industry; researches e-commerce best practices</td></tr>
+                <tr><td><strong>Presentation Lead</strong></td><td>Compiles findings; builds final deck; leads delivery to leadership</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <h4 style="font-size:13px;font-weight:800;color:var(--orange);text-transform:uppercase;margin:14px 0 8px;">Recommended Tools</h4>
+          <div style="display:flex;flex-wrap:wrap;gap:7px;">
+            <span class="tag tag-navy">Microsoft Excel</span>
+            <span class="tag tag-navy">Google Sheets</span>
+            <span class="tag tag-orange">Tableau Public</span>
+            <span class="tag tag-orange">Power BI</span>
+            <span class="tag tag-navy">Canva</span>
+          </div>
+        </div>
+      </div>
+
+      <h4 style="font-size:13px;font-weight:800;color:var(--orange);text-transform:uppercase;margin:20px 0 10px;">6-Week Project Structure</h4>
+      <div class="tbl-wrap">
+        <table style="font-size:12.5px;">
+          <thead><tr><th style="width:70px;">Week</th><th style="width:90px;">Phase</th><th>Activities</th><th>Deliverable</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Week 1</strong></td><td>Explore</td><td>Onboard to GreenCart; understand e-commerce business model; explore dataset structure; identify what each column means; ask leadership what they want to know</td><td>Dataset exploration notes; 5 business questions to answer</td></tr>
+            <tr><td><strong>Week 2</strong></td><td>Explore + Build</td><td>Data cleaning: remove blanks, fix date formats, remove duplicate Order IDs; standardize borough names and product categories; run basic statistics (averages, counts)</td><td>Cleaned dataset (v1); data cleaning log; basic statistics summary</td></tr>
+            <tr><td><strong>Week 3</strong></td><td>Build</td><td>Build pivot tables and initial charts: orders by borough, top product categories, delivery time trends, order status breakdown; identify which borough has lowest satisfaction; start dashboard design</td><td>5+ charts created; dashboard wireframe; initial insights notes</td></tr>
+            <tr><td><strong>Week 4</strong></td><td>Build + Apply</td><td>Complete interactive dashboard; add filters (by date, borough, category); finalize 3–5 key insights; write "so what" interpretation for each; draft recommendations; mid-program check-in</td><td>Dashboard v1 (complete); written insights; draft recommendations; self-assessment</td></tr>
+            <tr><td><strong>Week 5</strong></td><td>Apply</td><td>Build final presentation deck; use dashboard screenshots as visual evidence; practice presenting insights in non-technical language; incorporate supervisor feedback; refine dashboard</td><td>Final presentation deck; dashboard v2 (refined); practice presentation</td></tr>
+            <tr><td><strong>Week 6</strong></td><td>Launch + Reflect</td><td>Final presentation to GreenCart leadership (15–20 min); live demo of dashboard; answer questions; formal evaluation; DYCD exit survey; team celebration; reflection</td><td>Final presentation delivered; evaluation signed; exit survey; reflection</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="grid-2" style="gap:18px;margin-top:18px;">
+        <div>
+          <h4 style="font-size:13px;font-weight:800;color:var(--orange);text-transform:uppercase;margin-bottom:10px;">Final Deliverables</h4>
+          <ul class="deliverable-list">
+            <li><div class="check">✓</div><div><strong>Clean Dataset</strong> — documented process, no errors/blanks</div></li>
+            <li><div class="check">✓</div><div><strong>Visual Dashboard</strong> — 5+ charts, filterable by borough &amp; date</div></li>
+            <li><div class="check">✓</div><div><strong>3–5 Key Business Insights</strong> — plain language with data evidence</div></li>
+            <li><div class="check">✓</div><div><strong>Business Recommendations</strong> — actionable suggestions from findings</div></li>
+            <li><div class="check">✓</div><div><strong>Final Presentation Deck</strong> — 10–15 slides with live dashboard demo</div></li>
+            <li><div class="check">✓</div><div><strong>Industry Benchmarking</strong> — GreenCart vs. e-commerce averages</div></li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="font-size:13px;font-weight:800;color:var(--navy);text-transform:uppercase;margin-bottom:8px;">Key Learning Outcomes</h4>
+          <div style="line-height:2;"><span class="tag">Data Cleaning</span><span class="tag">Excel / Sheets</span><span class="tag">Data Visualization</span><span class="tag">Business Analysis</span><span class="tag">Storytelling with Data</span><span class="tag">Dashboard Design</span><span class="tag">Presentation Skills</span></div>
+          <div class="callout" style="margin-top:12px;font-size:12.5px;">
+            <strong>💡 Example Insight:</strong> "Brooklyn has the highest order volume but the lowest customer rating (avg 2.8/5). Delivery times in Brooklyn average 5.2 hrs vs. 2.8 hrs in Queens."
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SCENARIO C ── -->
+  <section class="section" id="scenario-c">
+    <div class="sec-eyebrow">Project Scenario C — Workflow Automation</div>
+    <div class="scenario-hd">
+      <div class="scenario-company">Track C · BrightPath (Tech Consulting Firm) · 4–5 Interns · 6 Weeks</div>
+      <div class="scenario-title">Workflow Automation Prototype</div>
+      <div class="scenario-sub">Interns map a 5-step manual process, identify bottlenecks, and build an automation prototype using no-code/low-code tools — measuring time savings.</div>
+    </div>
+    <div class="scenario-body">
+      <div class="grid-2" style="gap:22px;align-items:start;">
+        <div>
+          <h4 style="font-size:13px;font-weight:800;color:var(--orange);text-transform:uppercase;margin-bottom:8px;">Company Background</h4>
+          <p style="font-size:13.5px;line-height:1.65;margin-bottom:12px;">BrightPath is a tech consulting firm that helps small businesses streamline operations. Internally, they rely on a manual form submission process for new client inquiries — a time-consuming bottleneck causing delays and errors.</p>
+
+          <div class="callout" style="margin-bottom:14px;">
+            <strong>⚡ Intern Mission:</strong> Map the current manual workflow, identify inefficiencies, design an automated alternative, build a working prototype, and measure time savings.
+          </div>
+
+          <h4 style="font-size:13px;font-weight:800;color:var(--orange);text-transform:uppercase;margin-bottom:8px;">Current Manual Workflow (5 Steps)</h4>
+          <div style="margin-bottom:10px;">
+            <div style="background:var(--orange);color:white;padding:7px 12px;border-radius:4px;font-size:12.5px;font-weight:700;margin-bottom:4px;">Step 1 — Copy form data to spreadsheet <span style="float:right;opacity:0.8;">5 min</span></div>
+            <div style="background:#c94000;color:white;padding:7px 12px;border-radius:4px;font-size:12.5px;font-weight:700;margin-bottom:4px;">Step 2 — Send welcome email manually <span style="float:right;opacity:0.8;">5 min</span></div>
+            <div style="background:#a83500;color:white;padding:7px 12px;border-radius:4px;font-size:12.5px;font-weight:700;margin-bottom:4px;">Step 3 — Create task in Asana/Trello <span style="float:right;opacity:0.8;">5 min</span></div>
+            <div style="background:#8a2c00;color:white;padding:7px 12px;border-radius:4px;font-size:12.5px;font-weight:700;margin-bottom:4px;">Step 4 — Add contact to CRM <span style="float:right;opacity:0.8;">5 min</span></div>
+            <div style="background:#6b2200;color:white;padding:7px 12px;border-radius:4px;font-size:12.5px;font-weight:700;margin-bottom:4px;">Step 5 — Schedule discovery call <span style="float:right;opacity:0.8;">10 min</span></div>
+            <div style="background:var(--navy);color:var(--yellow);padding:8px 12px;border-radius:4px;font-size:13px;font-weight:900;">⏱ TOTAL: 20–30 min/inquiry &nbsp;|&nbsp; 50+ inquiries/month = 15+ hrs wasted</div>
+          </div>
+        </div>
+        <div>
+          <h4 style="font-size:13px;font-weight:800;color:var(--orange);text-transform:uppercase;margin-bottom:8px;">The Dataset — BrightPath_Inquiries_Sample.csv</h4>
+          <div class="tbl-wrap">
+            <table style="font-size:12px;">
+              <thead><tr><th>Column</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td>Inquiry ID</td><td>Unique form submission ID</td></tr>
+                <tr><td>Client Name</td><td>Name of inquiring client</td></tr>
+                <tr><td>Email Address</td><td>Client contact email</td></tr>
+                <tr><td>Business Type</td><td>Retail, services, etc.</td></tr>
+                <tr><td>Service Interest</td><td>Which BrightPath service they want</td></tr>
+                <tr><td>Submission Date</td><td>When the form was submitted</td></tr>
+                <tr><td>Response Date</td><td>When staff first responded</td></tr>
+                <tr><td>Response Time (hrs)</td><td>Calculated time to first response</td></tr>
+                <tr><td>Status</td><td>Pending / In Progress / Closed</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <h4 style="font-size:13px;font-weight:800;color:var(--orange);text-transform:uppercase;margin:14px 0 8px;">Team Roles</h4>
+          <div class="tbl-wrap">
+            <table style="font-size:12px;">
+              <thead><tr><th>Role</th><th>Responsibilities</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Process Analyst</strong></td><td>Documents current workflow; interviews staff; creates process map</td></tr>
+                <tr><td><strong>Data Analyst</strong></td><td>Analyzes inquiry dataset; measures current performance metrics</td></tr>
+                <tr><td><strong>Automation Builder</strong></td><td>Builds automation prototype in Zapier/Make/Apps Script</td></tr>
+                <tr><td><strong>QA / Tester</strong></td><td>Tests prototype; documents bugs and improvements</td></tr>
+                <tr><td><strong>Presentation Lead</strong></td><td>Builds final deck with before/after comparison</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <h4 style="font-size:13px;font-weight:800;color:var(--orange);text-transform:uppercase;margin:20px 0 10px;">6-Week Project Structure</h4>
+      <div class="tbl-wrap">
+        <table style="font-size:12.5px;">
+          <thead><tr><th style="width:70px;">Week</th><th style="width:90px;">Phase</th><th>Activities</th><th>Deliverable</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Week 1</strong></td><td>Explore</td><td>Onboard to BrightPath; shadow staff through the manual process at least once; interview 2–3 team members about pain points; document each step in detail</td><td>Current workflow documentation; staff interview notes; roles assigned</td></tr>
+            <tr><td><strong>Week 2</strong></td><td>Explore + Build</td><td>Analyze inquiry dataset (avg response time, peak inquiry days, bottlenecks); create process map flowchart; research automation tools (Zapier, Make, Apps Script); compare free tier capabilities</td><td>Dataset analysis summary; process map flowchart; automation tool comparison chart</td></tr>
+            <tr><td><strong>Week 3</strong></td><td>Build</td><td>Design automated workflow; choose automation tool; build first automated trigger (form submission → spreadsheet row); test with sample data; document build process with screenshots</td><td>Automation design diagram; Step 1 automation built &amp; tested; build documentation</td></tr>
+            <tr><td><strong>Week 4</strong></td><td>Build + Apply</td><td>Build automation for steps 2–3 (welcome email + task creation); test full flow end-to-end; QA Lead documents errors; fix bugs; begin measuring time savings vs. manual; mid-program check-in</td><td>Automation steps 1–3 complete; QA test log; time savings measurement draft; self-assessment</td></tr>
+            <tr><td><strong>Week 5</strong></td><td>Apply</td><td>Complete full automation prototype; conduct final testing with full sample dataset; measure total time savings; build before/after comparison; create presentation deck; practice presenting</td><td>Complete automation prototype; before/after comparison; final presentation deck; practice run</td></tr>
+            <tr><td><strong>Week 6</strong></td><td>Launch + Reflect</td><td>Final presentation to BrightPath leadership (15–20 min); live demo of automation prototype; present time savings data; answer Q&amp;A; formal evaluation; DYCD exit survey; reflection</td><td>Final presentation delivered; live demo; evaluation signed; exit survey; reflection</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="grid-2" style="gap:18px;margin-top:18px;">
+        <div>
+          <h4 style="font-size:13px;font-weight:800;color:var(--orange);text-transform:uppercase;margin-bottom:10px;">Final Deliverables</h4>
+          <ul class="deliverable-list">
+            <li><div class="check">✓</div><div><strong>Current State Process Map</strong> — detailed flowchart of the 5-step manual workflow</div></li>
+            <li><div class="check">✓</div><div><strong>Automation Prototype</strong> — working automation in Zapier/Make/Apps Script</div></li>
+            <li><div class="check">✓</div><div><strong>QA Test Log</strong> — documented test cases, results, and bug fixes</div></li>
+            <li><div class="check">✓</div><div><strong>Before/After Comparison</strong> — time saved, error reduction, efficiency metrics</div></li>
+            <li><div class="check">✓</div><div><strong>Implementation Recommendation</strong> — steps to adopt the solution</div></li>
+            <li><div class="check">✓</div><div><strong>Final Presentation Deck</strong> — 10–15 slides with live demo</div></li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="font-size:13px;font-weight:800;color:var(--navy);text-transform:uppercase;margin-bottom:8px;">Key Learning Outcomes</h4>
+          <div style="line-height:2;"><span class="tag">Process Mapping</span><span class="tag">Zapier / Make</span><span class="tag">Google Apps Script</span><span class="tag">QA Testing</span><span class="tag">Efficiency Analysis</span><span class="tag">Problem Solving</span><span class="tag">No-Code Tools</span><span class="tag">Technical Documentation</span></div>
+          <div class="callout-yellow" style="margin-top:12px;font-size:12.5px;">
+            🔧 <strong>Supervisor Tip:</strong> Set up test accounts for automation tools in advance. Verify tool access before Week 3. Many free tiers have step limits.
+          </div>
+          <div class="callout" style="margin-top:8px;font-size:12.5px;">
+            <strong>📝 Scope Note:</strong> Interns are not expected to fully deploy in production. A working proof-of-concept using sample/test accounts is sufficient.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer id="footer">
+  <strong>NYC Department of Youth &amp; Community Development</strong> × Urban Assembly × The Knowledge House<br>
+  High School Tech Internship Framework — SYEP — Confidential<br>
+  <span style="font-size:11px;">dycd.nyc.gov &nbsp;|&nbsp; urbanassembly.org &nbsp;|&nbsp; theknowledgehouse.org</span>
+</footer>
+
+<!-- SCROLL TO TOP -->
+<button id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">↑</button>
+
+<script>
+// ── SIDEBAR TOGGLE (mobile) ──
+function toggleSidebar(){
+  document.getElementById('sidebar').classList.toggle('open');
+}
+
+// ── ACTIVE NAV ──
+function setActive(el){
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  el.classList.add('active');
+  if(window.innerWidth<=768) document.getElementById('sidebar').classList.remove('open');
+}
+
+// ── ACCORDION ──
+function toggleAccordion(hd){
+  const body=hd.nextElementSibling;
+  const isOpen=hd.classList.contains('open');
+  hd.classList.toggle('open',!isOpen);
+  body.classList.toggle('open',!isOpen);
+}
+
+// ── RATING ──
+function rateSkill(groupId,val){
+  const btns=document.getElementById(groupId).querySelectorAll('.rating-btn');
+  btns.forEach((b,i)=>{
+    b.classList.toggle('selected',i<val);
+  });
+}
+
+// ── SCROLL SPY ──
+const sectionIds=['why-host','portrait','journey','schedule','skills','professional','supervision','compliance','checkin','scenario-a','scenario-b','scenario-c'];
+window.addEventListener('scroll',()=>{
+  const y=window.scrollY+120;
+  // scroll-to-top visibility
+  document.getElementById('scroll-top').classList.toggle('visible',window.scrollY>400);
+  // nav highlight
+  let current='';
+  sectionIds.forEach(id=>{
+    const el=document.getElementById(id);
+    if(el&&el.offsetTop<=y) current=id;
+  });
+  document.querySelectorAll('.nav-item').forEach(n=>{
+    const href=n.getAttribute('href');
+    if(href==='#'+current) n.classList.add('active');
+    else n.classList.remove('active');
+  });
+});
+
+// ── ANIMATE PROGRESS BARS ON SCROLL ──
+let barsAnimated=false;
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting&&!barsAnimated){
+      barsAnimated=true;
+      document.querySelectorAll('.progress-bar').forEach(b=>{
+        const w=b.style.width;
+        b.style.width='0';
+        setTimeout(()=>b.style.width=w,100);
+      });
+    }
+  });
+},{threshold:0.3});
+const schedSec=document.getElementById('schedule');
+if(schedSec) observer.observe(schedSec);
+</script>
+</body>
+</html>
