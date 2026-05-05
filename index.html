@@ -390,6 +390,136 @@ tr:hover td{background:#edf2fb;}
   .scenario-hd,.scenario-body{padding:18px 20px;}
 }
 
+/* ── AI BUILDER SECTION ── */
+.ai-hero-band{
+  background:var(--navy);border-radius:10px;padding:28px 32px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:24px;margin-bottom:28px;flex-wrap:wrap;
+}
+.ai-hero-band h3{font-size:22px;font-weight:900;color:var(--yellow);margin-bottom:6px;line-height:1.2;}
+.ai-hero-band p{font-size:14px;color:rgba(255,255,255,0.82);max-width:520px;line-height:1.65;}
+.logo-row{display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+.logo-row img{height:36px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.9;}
+.logo-row img.dycd-logo{height:32px;}
+
+.picker-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0 8px;}
+@media(max-width:768px){.picker-grid{grid-template-columns:1fr 1fr;}}
+.picker-card{
+  border:2px solid var(--mid);border-radius:8px;padding:16px;
+  cursor:pointer;transition:all 0.2s;background:white;
+  display:flex;flex-direction:column;gap:6px;
+}
+.picker-card:hover{border-color:var(--orange);transform:translateY(-2px);box-shadow:0 6px 20px rgba(232,75,0,0.12);}
+.picker-card.wildcard{border-style:dashed;border-color:var(--yellow);background:var(--navy);}
+.picker-card.wildcard .picker-title{color:var(--yellow);}
+.picker-card.wildcard .picker-desc{color:rgba(255,255,255,0.75);}
+.picker-card.wildcard .picker-fit{color:rgba(255,255,255,0.5);}
+.picker-icon{font-size:22px;margin-bottom:2px;}
+.picker-title{font-size:13px;font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:0.5px;line-height:1.25;}
+.picker-desc{font-size:12px;color:#555;line-height:1.5;}
+.picker-fit{font-size:11px;color:var(--orange);font-weight:700;margin-top:4px;}
+
+.workflow-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0;}
+@media(max-width:768px){.workflow-steps{grid-template-columns:1fr 1fr;}}
+.wf-step{
+  background:var(--navy);border-radius:8px;padding:16px;
+  position:relative;overflow:hidden;
+}
+.wf-step::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:var(--orange);
+}
+.wf-num{font-size:28px;font-weight:900;color:var(--yellow);line-height:1;margin-bottom:6px;opacity:0.7;}
+.wf-label{font-size:12px;font-weight:800;color:white;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px;}
+.wf-desc{font-size:12px;color:rgba(255,255,255,0.75);line-height:1.55;}
+
+.upload-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0;}
+@media(max-width:600px){.upload-grid{grid-template-columns:1fr;}}
+.upload-card{
+  background:var(--light);border:1px solid var(--mid);border-radius:8px;padding:14px 16px;
+}
+.upload-card h5{font-size:11px;font-weight:800;color:var(--orange);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px;}
+.upload-card ul{padding-left:14px;font-size:12.5px;line-height:1.7;color:#444;}
+
+.tool-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0;}
+@media(max-width:600px){.tool-row{grid-template-columns:1fr;}}
+.tool-card{
+  border-radius:8px;padding:16px;border:2px solid var(--mid);
+  transition:border-color 0.2s;
+}
+.tool-card:hover{border-color:var(--orange);}
+.tool-name{font-size:13px;font-weight:900;color:var(--navy);margin-bottom:4px;}
+.tool-tag{display:inline-block;font-size:9px;font-weight:800;padding:2px 8px;border-radius:10px;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;}
+.tool-tag.best{background:var(--yellow);color:var(--navy);}
+.tool-tag.good{background:var(--mid);color:var(--navy);}
+.tool-desc{font-size:12px;color:#555;line-height:1.55;}
+
+.prompt-accordion{margin:10px 0;}
+.prompt-item{border:1px solid var(--mid);border-radius:8px;margin-bottom:8px;overflow:hidden;}
+.prompt-hd{
+  background:var(--navy2);color:white;padding:14px 18px;
+  cursor:pointer;display:flex;justify-content:space-between;align-items:center;
+  font-weight:700;font-size:13.5px;transition:background 0.2s;
+}
+.prompt-hd:hover{background:#1a4070;}
+.prompt-hd .chevron{font-size:16px;transition:transform 0.3s;}
+.prompt-hd.open .chevron{transform:rotate(180deg);}
+.prompt-body{display:none;padding:20px 20px 20px;background:white;}
+.prompt-body.open{display:block;}
+.prep-list{list-style:none;padding:0;margin:0 0 14px;}
+.prep-list li{
+  padding:8px 12px 8px 16px;border-left:3px solid var(--yellow);
+  margin-bottom:5px;background:var(--light);border-radius:0 4px 4px 0;
+  font-size:13px;line-height:1.5;
+}
+.prep-list li strong{color:var(--navy);}
+.prompt-box{
+  background:#0d1f35;border-radius:6px;padding:16px 18px;
+  font-family:'Courier New',monospace;font-size:11.5px;line-height:1.7;
+  color:#a8d4ff;white-space:pre-wrap;word-break:break-word;
+  position:relative;margin-top:10px;
+}
+.copy-btn{
+  position:absolute;top:10px;right:10px;
+  background:var(--orange);color:white;border:none;
+  padding:5px 12px;border-radius:4px;font-size:11px;font-weight:700;
+  cursor:pointer;transition:background 0.2s;letter-spacing:0.3px;
+}
+.copy-btn:hover{background:#c94000;}
+.copy-btn.copied{background:#2d7a4a;}
+
+.checklist-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0;}
+@media(max-width:600px){.checklist-grid{grid-template-columns:1fr;}}
+.cl-group{background:var(--light);border-radius:8px;padding:14px 16px;}
+.cl-group h5{font-size:11px;font-weight:800;color:var(--orange);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:10px;}
+.cl-item{display:flex;align-items:flex-start;gap:8px;font-size:12.5px;margin-bottom:6px;line-height:1.4;}
+.cl-box{width:16px;height:16px;border:2px solid var(--orange);border-radius:3px;flex-shrink:0;margin-top:1px;}
+
+.photo-break{width:100%;height:220px;object-fit:cover;object-position:center 35%;border-radius:8px;display:block;margin:28px 0;}
+.partner-logos-bar{
+  display:flex;align-items:center;gap:20px;justify-content:center;
+  padding:16px 0;border-top:1px solid var(--mid);border-bottom:1px solid var(--mid);
+  margin:28px 0 20px;flex-wrap:wrap;
+}
+.partner-logos-bar span{font-size:10px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:1px;}
+.partner-logos-bar img{height:28px;object-fit:contain;opacity:0.65;transition:opacity 0.2s;}
+.partner-logos-bar img:hover{opacity:1;}
+
+.transfer-steps{counter-reset:transfer;margin:14px 0;}
+.transfer-step{
+  display:flex;gap:14px;align-items:flex-start;
+  padding:12px 0;border-bottom:1px solid var(--mid);
+}
+.transfer-step:last-child{border-bottom:none;}
+.transfer-step::before{
+  counter-increment:transfer;content:counter(transfer);
+  width:28px;height:28px;background:var(--orange);color:white;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:800;flex-shrink:0;margin-top:1px;
+}
+.transfer-step p{font-size:13.5px;line-height:1.55;margin:0;}
+.transfer-step p strong{color:var(--navy);}
+
 /* ── PRINT OVERRIDE ── */
 @media print{
   #sidebar,#topbar,#scroll-top,#footer,#menu-toggle{display:none!important;}
@@ -457,6 +587,10 @@ tr:hover td{background:#edf2fb;}
   </a>
   <a class="nav-item" href="#scenario-d" onclick="setActive(this)">
     <div class="nav-num scenario">D</div><span class="nav-label">Workplace Problem Solving</span>
+  </a>
+  <div class="nav-section-label" style="margin-top:10px;">AI Tools</div>
+  <a class="nav-item" href="#ai-builder" onclick="setActive(this)">
+    <div class="nav-num" style="background:var(--yellow);color:var(--navy);">⚡</div><span class="nav-label">Build With AI</span>
   </a>
 </aside>
 
@@ -1432,6 +1566,612 @@ tr:hover td{background:#edf2fb;}
     </div>
   </section>
 
+  <!-- ── AI BUILDER ── -->
+  <section class="section" id="ai-builder">
+
+    <!-- LOGOS: DYCD + Student Pathways in section header band -->
+    <div class="ai-hero-band">
+      <div>
+        <h3>Build Your Internship With AI</h3>
+        <p>AI tools can take you from a vague project idea to a fully structured, 6-week internship experience in under an hour. This section shows you exactly how — step by step.</p>
+      </div>
+      <div class="logo-row">
+        <img class="dycd-logo" src="assets/DYCD%20Official%20Logo_White_Orange%20(2).png" alt="DYCD" onerror="this.style.display='none'">
+        <img src="assets/Student%20Pathways%20Logos/PNG/NYCPS-Pathways-logo-white.png" alt="NYCPS Student Pathways" onerror="this.style.display='none'">
+      </div>
+    </div>
+
+    <!-- IMAGE: Students at laptops — right below hero band -->
+    <img class="photo-break" src="assets/photos/Northwell%20Photos/FRNYC%20WK%202-22.jpg" alt="Students working on laptops" onerror="this.style.display='none'">
+
+    <!-- ── STEP 1: CHOOSE YOUR STARTING POINT ── -->
+    <div class="sec-eyebrow" style="margin-top:8px;">Step 1</div>
+    <h3 class="sec-h1" style="font-size:22px;">Choose Your <span>Starting Point</span></h3>
+    <div class="sec-bar"></div>
+    <p class="sec-intro">Pick the scenario that most closely matches what your interns could work on at your organization. You don't need a perfect match — just the closest one. You'll customize it from there.</p>
+
+    <div class="picker-grid">
+      <div class="picker-card">
+        <div class="picker-icon">🔐</div>
+        <div class="picker-title">Scenario A — Cybersecurity Investigation</div>
+        <div class="picker-desc">Interns analyze simulated login or access data, flag suspicious patterns, and present incident response findings.</div>
+        <div class="picker-fit">Good fit if: your org handles logins, accounts, access permissions, or sensitive records</div>
+      </div>
+      <div class="picker-card">
+        <div class="picker-icon">📊</div>
+        <div class="picker-title">Scenario B — Data Insights Dashboard</div>
+        <div class="picker-desc">Interns clean, analyze, and visualize a dataset to surface business insights for leadership decision-making.</div>
+        <div class="picker-fit">Good fit if: your org tracks orders, clients, donations, deliveries, or any data leadership wants to understand</div>
+      </div>
+      <div class="picker-card">
+        <div class="picker-icon">⚙️</div>
+        <div class="picker-title">Scenario C — Workflow Automation</div>
+        <div class="picker-desc">Interns map a manual process, identify inefficiencies, and build a simple automation prototype using free no-code tools.</div>
+        <div class="picker-fit">Good fit if: your org has repetitive tasks — form processing, routine emails, manual data entry</div>
+      </div>
+      <div class="picker-card">
+        <div class="picker-icon">💡</div>
+        <div class="picker-title">Scenario D — Workplace Problem Solving</div>
+        <div class="picker-desc">Interns research a real workplace challenge and design a technology-based solution concept. No coding required.</div>
+        <div class="picker-fit">Good fit if: you're not sure what to assign — this works for any industry or org type</div>
+      </div>
+      <div class="picker-card">
+        <div class="picker-icon">📱</div>
+        <div class="picker-title">Scenario D (variant) — App Concept Design</div>
+        <div class="picker-desc">Interns design a mobile app or digital tool concept to solve a staff or customer-facing problem. Wireframes, not code.</div>
+        <div class="picker-fit">Good fit if: your org has a clear user pain point and wants a designed solution concept</div>
+      </div>
+      <div class="picker-card wildcard">
+        <div class="picker-icon">🃏</div>
+        <div class="picker-title">Wildcard — Build Your Own</div>
+        <div class="picker-desc">None of the four scenarios fit your site? Use the wildcard prompt to generate an entirely original scenario using the playbook's structure.</div>
+        <div class="picker-fit">Good fit if: you have a specific project in mind that doesn't map to the above</div>
+      </div>
+    </div>
+
+    <div class="callout-yellow" style="margin-top:8px;">
+      📌 <strong>Not sure which to pick?</strong> Start with Scenario D. It works for every organization and gives interns a real research challenge without requiring specialized data or technical setup.
+    </div>
+
+    <!-- ── STEP 2: AI WORKFLOW ── -->
+    <div style="margin-top:36px;">
+      <div class="sec-eyebrow">Step 2</div>
+      <h3 class="sec-h1" style="font-size:22px;">The AI <span>Workflow</span></h3>
+      <div class="sec-bar"></div>
+      <p class="sec-intro">Follow these six steps in order. Each step builds on the last. Skipping the prep steps — especially Asset Dumping — is the most common reason AI outputs come back generic and unusable.</p>
+
+      <div class="workflow-steps">
+        <div class="wf-step">
+          <div class="wf-num">01</div>
+          <div class="wf-label">Ideation</div>
+          <div class="wf-desc">Decide what your interns could actually work on. Pick one of the four scenarios or describe a project idea in plain language. Write 2–3 sentences about what the intern team would do.</div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num">02</div>
+          <div class="wf-label">Research</div>
+          <div class="wf-desc">Answer the "Before You Start" questions for your chosen scenario. These take 10–15 minutes and are the most important part of the whole process. The better your inputs, the better your output.</div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num">03</div>
+          <div class="wf-label">Asset Dump</div>
+          <div class="wf-desc">Gather what AI needs from you: your org description, a list of available tools, the scenario you're adapting, and any relevant internal documents. Drop them into your AI tool before running the prompt.</div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num">04</div>
+          <div class="wf-label">Prompting</div>
+          <div class="wf-desc">Copy the prompt template for your chosen scenario. Fill in every bracketed field with your real answers. Attach the scenario template PDF from the playbook as a reference file. Run the prompt.</div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num">05</div>
+          <div class="wf-label">Validation</div>
+          <div class="wf-desc">Read the output carefully. Check scope, timeline realism, and deliverables against the Employer Review Checklist at the bottom of this page. Edit what doesn't fit. The AI gives you a draft — you make it real.</div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num">06</div>
+          <div class="wf-label">Transfer</div>
+          <div class="wf-desc">Copy the final scenario into the Technical Skills Learning Template. This becomes your official intern project plan, shared with your supervisor, coordinator, and intern team on Day 1.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IMAGE: Students collaborating in group — between workflow and assets -->
+    <img class="photo-break" src="assets/photos/Northwell%20Photos/FRNYC%20WK%204-29.jpg" alt="Interns collaborating" onerror="this.style.display='none'">
+
+    <!-- ── STEP 3: WHAT TO UPLOAD ── -->
+    <div>
+      <div class="sec-eyebrow">Step 3 — Asset Dump</div>
+      <h3 class="sec-h1" style="font-size:22px;">What to Gather <span>Before You Prompt</span></h3>
+      <div class="sec-bar"></div>
+      <p class="sec-intro">Before you copy a prompt into any AI tool, spend 10–15 minutes collecting these inputs. Drop them into a single document or the AI's context window. This is the work that makes the output usable.</p>
+
+      <div class="upload-grid">
+        <div class="upload-card">
+          <h5>About Your Organization</h5>
+          <ul>
+            <li>Organization name and 2–3 sentence description of what you do</li>
+            <li>Industry / sector (nonprofit, healthcare, retail, tech, etc.)</li>
+            <li>Size of your team and how interns would fit in</li>
+            <li>Any departments or teams interns would interact with</li>
+          </ul>
+        </div>
+        <div class="upload-card">
+          <h5>About the Project</h5>
+          <ul>
+            <li>Which scenario you're adapting (A, B, C, D, or Wildcard)</li>
+            <li>The data, process, or problem interns would work on</li>
+            <li>Any real examples (a spreadsheet column list, a process walkthrough, a pain point)</li>
+            <li>What a successful intern output would look like to you</li>
+          </ul>
+        </div>
+        <div class="upload-card">
+          <h5>Logistics</h5>
+          <ul>
+            <li>Number of interns you're hosting (1–5)</li>
+            <li>Any scheduling constraints or department-specific norms</li>
+            <li>Who the intern supervisor will be and their availability</li>
+          </ul>
+        </div>
+        <div class="upload-card">
+          <h5>Tools Available</h5>
+          <ul>
+            <li>Every tool interns will have access to (be specific)</li>
+            <li>Examples: Google Workspace, Excel, Canva, Figma, Zapier free tier, Tableau Public, Slack</li>
+            <li>Any tools that are <em>off-limits</em> (proprietary systems, admin dashboards, etc.)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>💡 Pro tip:</strong> If you have internal documents — a process walkthrough, a list of spreadsheet columns, a staff org chart — paste them directly into the AI chat. The more context you give, the more specific and realistic the output.
+      </div>
+    </div>
+
+    <!-- ── STEP 4: AI TOOL GUIDANCE ── -->
+    <div style="margin-top:32px;">
+      <div class="sec-eyebrow">Step 4 — Prompting</div>
+      <h3 class="sec-h1" style="font-size:22px;">Choose Your <span>AI Tool</span></h3>
+      <div class="sec-bar"></div>
+      <p class="sec-intro">All three tools below can run these prompts. Pick based on what you already have access to. You do not need all three.</p>
+
+      <div class="tool-row">
+        <div class="tool-card">
+          <div class="tool-name">NotebookLM</div>
+          <span class="tool-tag best">Best for: Organizing</span>
+          <div class="tool-desc">
+            <strong>Free. Google account required.</strong><br><br>
+            Upload the full playbook PDF and the scenario template as "sources." Then chat with it to ask questions, generate drafts, or compare scenarios. Best when you want the AI to deeply understand the playbook before you ask it to customize anything.
+            <br><br>
+            <strong>Use it for:</strong> Understanding which scenario fits your org, getting scenario summaries, comparing Scenarios A–D side by side.
+          </div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-name">ChatGPT</div>
+          <span class="tool-tag best">Best for: Generating</span>
+          <div class="tool-desc">
+            <strong>Free tier available. GPT-4 recommended.</strong><br><br>
+            Paste the prompt template, fill in your brackets, and attach the scenario PDF. ChatGPT is strong at following structured prompts and formatting tables. The free tier works, but GPT-4 handles the longer prompts better.
+            <br><br>
+            <strong>Use it for:</strong> Running the full customization prompts. Generating 6-week tables, team roles, and deliverable lists.
+          </div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-name">Claude</div>
+          <span class="tool-tag best">Best for: Refining</span>
+          <div class="tool-desc">
+            <strong>Free tier available. Claude Sonnet recommended.</strong><br><br>
+            Excellent at following precise formatting instructions and producing clean, structured output. Use Claude when you want tight control over the final format — especially for tables and callout boxes that need to match the playbook exactly.
+            <br><br>
+            <strong>Use it for:</strong> Polishing outputs, reformatting tables, rewriting sections in employer-friendly language.
+          </div>
+        </div>
+      </div>
+
+      <div class="callout-yellow" style="margin-top:4px;">
+        🔒 <strong>Privacy note:</strong> Do not upload documents containing real student data, staff personal information, or sensitive internal records to any AI tool. Use anonymized or sample data only.
+      </div>
+    </div>
+
+    <!-- ── STEP 5: PROMPT TEMPLATES ── -->
+    <div style="margin-top:32px;">
+      <div class="sec-eyebrow">Step 5 — Run the Prompt</div>
+      <h3 class="sec-h1" style="font-size:22px;">Prompt <span>Templates</span></h3>
+      <div class="sec-bar"></div>
+      <p class="sec-intro">Select your scenario below. Each template includes a prep checklist and a ready-to-copy prompt. Fill in every bracketed field before running — do not leave placeholders in the prompt.</p>
+
+      <div class="prompt-accordion">
+
+        <!-- SCENARIO A -->
+        <div class="prompt-item">
+          <div class="prompt-hd" onclick="togglePrompt(this)">
+            🔐 &nbsp;Scenario A — Cybersecurity Investigation<span class="chevron">▼</span>
+          </div>
+          <div class="prompt-body">
+            <h4 style="font-size:13px;font-weight:800;color:var(--orange);text-transform:uppercase;margin-bottom:10px;">Before You Start — Fill These In First</h4>
+            <ul class="prep-list">
+              <li><strong>1.</strong> Your organization's name and what it does (2–3 sentences)</li>
+              <li><strong>2.</strong> A data or security concern that could become a learning scenario — Does your org handle logins, customer accounts, access permissions, or sensitive records? What would a suspicious pattern look like?</li>
+              <li><strong>3.</strong> What simulated data could interns analyze? Think: timestamps, user IDs, IP addresses, event types — describe the columns, not the actual data</li>
+              <li><strong>4.</strong> What tools do your interns have access to? (Google Sheets, Excel, PowerPoint, Canva, etc.)</li>
+              <li><strong>5.</strong> How many interns will you host? (1–5)</li>
+            </ul>
+            <h4 style="font-size:13px;font-weight:800;color:var(--orange);text-transform:uppercase;margin:14px 0 8px;">The Prompt — Copy, Fill In, Run</h4>
+            <div class="prompt-box" id="prompt-a"><button class="copy-btn" onclick="copyPrompt('prompt-a',this)">Copy</button>&#60;ROLE_AND_GOAL&#62;
+You are an experienced internship designer who creates structured,
+skills-driven work-based learning experiences for high school
+students. Your task is to customize a 6-week cybersecurity
+investigation project for interns hosted at [ORGANIZATION_NAME],
+a [BRIEF_DESCRIPTION_OF_ORG]. Follow the structure of the
+attached scenario template but tailor it to this organization's
+context so interns are working on something real and relevant.
+&#60;/ROLE_AND_GOAL&#62;
+
+&#60;STEPS&#62;
+1. Write a company background paragraph (3–5 sentences)
+2. Write a challenge description framing a realistic but simulated
+   security scenario interns will investigate. Use this context:
+   [DESCRIBE_THE_DATA_OR_SECURITY_CONCERN]
+3. Write an intern mission statement (2–3 sentences)
+4. Create a team roles table (4–5 roles) for [NUMBER_OF_INTERNS] interns
+5. Design a simulated dataset with 5–8 columns based on:
+   [DESCRIBE_WHAT_SIMULATED_DATA_COULD_INCLUDE]
+6. Create a 6-week project structure table:
+   - Weeks 1–2: Explore (onboarding, dataset review, role assignment)
+   - Weeks 3–4: Build (anomaly detection, charting, friction log)
+   - Week 5: Apply (synthesize, build presentation, write summary)
+   - Week 6: Launch + Reflect (present to leadership, evaluation)
+7. List 5–6 expected final deliverables
+8. List 6–8 key learning outcomes as skill tags
+&#60;/STEPS&#62;
+
+&#60;OUTPUT&#62;
+Format the response to match the attached scenario template.
+Tools available: [LIST_TOOLS_AVAILABLE]
+Note: All work uses simulated data only — no real systems.
+Interns work 25 hrs/week. Final presentation is 15–20 minutes.
+&#60;/OUTPUT&#62;
+
+&#60;EVALUATION&#62;
+Before using: verify scope is realistic for ages 16–21 in 6 weeks,
+each week has a clear deliverable, no jargon used without explanation,
+and no access to real systems is required.
+&#60;/EVALUATION&#62;</div>
+          </div>
+        </div>
+
+        <!-- SCENARIO B -->
+        <div class="prompt-item">
+          <div class="prompt-hd" onclick="togglePrompt(this)">
+            📊 &nbsp;Scenario B — Data Insights Dashboard<span class="chevron">▼</span>
+          </div>
+          <div class="prompt-body">
+            <h4 style="font-size:13px;font-weight:800;color:var(--orange);text-transform:uppercase;margin-bottom:10px;">Before You Start — Fill These In First</h4>
+            <ul class="prep-list">
+              <li><strong>1.</strong> Your organization's name and what it does (2–3 sentences)</li>
+              <li><strong>2.</strong> What kind of data your org tracks — orders, client interactions, donations, event attendance, inventory, etc. What's already in your spreadsheets?</li>
+              <li><strong>3.</strong> 2–3 questions leadership would love to answer with data — e.g. "Which neighborhood has the highest demand?" or "Where are we losing clients?"</li>
+              <li><strong>4.</strong> What tools do your interns have access to? (Google Sheets, Excel, Tableau Public, Power BI, Canva, etc.)</li>
+              <li><strong>5.</strong> How many interns will you host? (1–5)</li>
+            </ul>
+            <h4 style="font-size:13px;font-weight:800;color:var(--orange);text-transform:uppercase;margin:14px 0 8px;">The Prompt — Copy, Fill In, Run</h4>
+            <div class="prompt-box" id="prompt-b"><button class="copy-btn" onclick="copyPrompt('prompt-b',this)">Copy</button>&#60;ROLE_AND_GOAL&#62;
+You are an experienced internship designer who creates structured,
+skills-driven work-based learning experiences for high school
+students. Your task is to customize a 6-week data insights
+dashboard project for interns hosted at [ORGANIZATION_NAME],
+a [BRIEF_DESCRIPTION_OF_ORG]. Follow the structure of the
+attached scenario template but tailor it to this organization's
+data and the questions leadership wants to answer.
+&#60;/ROLE_AND_GOAL&#62;
+
+&#60;STEPS&#62;
+1. Write a company background paragraph (3–5 sentences)
+2. Write a challenge description explaining what data the org tracks,
+   what leadership can't easily see, and why a dashboard would help.
+   Use this context: [DESCRIBE_DATA_YOUR_ORG_TRACKS]
+3. Write an intern mission statement (2–3 sentences)
+4. Design a sample dataset (100–500 rows) with 5–8 columns.
+   Base columns on the questions leadership wants answered:
+   [LIST_2_3_QUESTIONS_LEADERSHIP_WANTS_ANSWERED]
+5. Create a team roles table (4–5 roles) for [NUMBER_OF_INTERNS] interns
+6. Create a 6-week project structure table:
+   - Weeks 1–2: Explore (onboarding, dataset exploration, data cleaning)
+   - Weeks 3–4: Build (pivot tables, charts, dashboard design)
+   - Week 5: Apply (finalize dashboard, write insights, build deck)
+   - Week 6: Launch + Reflect (present to leadership, evaluation)
+7. List 5–6 expected final deliverables
+8. Write one sample insight: finding + data point + recommendation
+9. List 6–8 key learning outcomes as skill tags
+&#60;/STEPS&#62;
+
+&#60;OUTPUT&#62;
+Format the response to match the attached scenario template.
+Tools available: [LIST_TOOLS_AVAILABLE]
+Note: Dataset must not contain real PII. Insights written in plain
+language. Interns work 25 hrs/week.
+&#60;/OUTPUT&#62;
+
+&#60;EVALUATION&#62;
+Before using: verify dataset columns are realistic, leadership
+questions can actually be answered with the data described, scope
+is achievable in 6 weeks, each week has a clear deliverable.
+&#60;/EVALUATION&#62;</div>
+          </div>
+        </div>
+
+        <!-- SCENARIO C -->
+        <div class="prompt-item">
+          <div class="prompt-hd" onclick="togglePrompt(this)">
+            ⚙️ &nbsp;Scenario C — Workflow Automation Prototype<span class="chevron">▼</span>
+          </div>
+          <div class="prompt-body">
+            <h4 style="font-size:13px;font-weight:800;color:var(--orange);text-transform:uppercase;margin-bottom:10px;">Before You Start — Fill These In First</h4>
+            <ul class="prep-list">
+              <li><strong>1.</strong> Your organization's name and what it does (2–3 sentences)</li>
+              <li><strong>2.</strong> A manual process that takes too long or causes errors — walk through each step: What triggers it? Who does what? How long does each step take? What tools are involved? (Examples: intake forms, onboarding, scheduling, donation receipts)</li>
+              <li><strong>3.</strong> What tools do your interns have access to? (Zapier free tier, Make.com, Google Apps Script, Google Sheets, etc.)</li>
+              <li><strong>4.</strong> How many interns will you host? (1–5)</li>
+            </ul>
+            <h4 style="font-size:13px;font-weight:800;color:var(--orange);text-transform:uppercase;margin:14px 0 8px;">The Prompt — Copy, Fill In, Run</h4>
+            <div class="prompt-box" id="prompt-c"><button class="copy-btn" onclick="copyPrompt('prompt-c',this)">Copy</button>&#60;ROLE_AND_GOAL&#62;
+You are an experienced internship designer who creates structured,
+skills-driven work-based learning experiences for high school
+students. Your task is to customize a 6-week workflow automation
+project for interns hosted at [ORGANIZATION_NAME],
+a [BRIEF_DESCRIPTION_OF_ORG]. Follow the structure of the
+attached scenario template but tailor it to a real manual process
+at this organization.
+&#60;/ROLE_AND_GOAL&#62;
+
+&#60;STEPS&#62;
+1. Write a company background paragraph (3–5 sentences)
+2. Write a challenge description breaking down the manual process
+   interns will improve. Use this context:
+   [DESCRIBE_THE_MANUAL_PROCESS_STEP_BY_STEP]
+3. Break the current workflow into numbered steps with time estimates
+4. Write an intern mission statement (2–3 sentences)
+5. Design a sample dataset (30–100 rows) capturing the data flow
+6. Create a team roles table (4–5 roles) for [NUMBER_OF_INTERNS] interns
+7. Create a 6-week project structure table:
+   - Weeks 1–2: Explore (shadow staff, interview, document, research tools)
+   - Weeks 3–4: Build (design prototype, build automation, test)
+   - Week 5: Apply (complete prototype, measure time savings, build deck)
+   - Week 6: Launch + Reflect (present and demo to leadership, evaluation)
+8. List 5–6 expected final deliverables
+9. Write a before/after time savings example
+10. List 6–8 key learning outcomes as skill tags
+&#60;/STEPS&#62;
+
+&#60;OUTPUT&#62;
+Format the response to match the attached scenario template.
+Tools available: [LIST_TOOLS_AVAILABLE]
+Note: Interns build a proof-of-concept only — not a production
+deployment. All tools must be free-tier accessible.
+Interns work 25 hrs/week.
+&#60;/OUTPUT&#62;
+
+&#60;EVALUATION&#62;
+Before using: verify manual process is realistic for this org,
+automation scope is achievable with free tools in 6 weeks, the
+before/after uses measurable metrics, each week has a clear
+deliverable, prototype is framed as proof-of-concept only.
+&#60;/EVALUATION&#62;</div>
+          </div>
+        </div>
+
+        <!-- SCENARIO D -->
+        <div class="prompt-item">
+          <div class="prompt-hd" onclick="togglePrompt(this)">
+            💡 &nbsp;Scenario D — Workplace Problem Solving &amp; App Concept<span class="chevron">▼</span>
+          </div>
+          <div class="prompt-body">
+            <h4 style="font-size:13px;font-weight:800;color:var(--orange);text-transform:uppercase;margin-bottom:10px;">Before You Start — Fill These In First</h4>
+            <ul class="prep-list">
+              <li><strong>1.</strong> Your organization's name and what it does (2–3 sentences)</li>
+              <li><strong>2.</strong> 1–2 known pain points staff deal with — Where do things slow down? What do people complain about? Where do mistakes happen? (Examples: long wait times, scheduling headaches, feedback not captured)</li>
+              <li><strong>3.</strong> What tools do your interns have access to for designing a concept? (Google Slides, Canva, Figma, Miro, paper + markers, etc.)</li>
+              <li><strong>4.</strong> How many interns will you host? (1–5)</li>
+            </ul>
+            <h4 style="font-size:13px;font-weight:800;color:var(--orange);text-transform:uppercase;margin:14px 0 8px;">The Prompt — Copy, Fill In, Run</h4>
+            <div class="prompt-box" id="prompt-d"><button class="copy-btn" onclick="copyPrompt('prompt-d',this)">Copy</button>&#60;ROLE_AND_GOAL&#62;
+You are an experienced internship designer who creates structured,
+skills-driven work-based learning experiences for high school
+students. Your task is to customize a 6-week workplace problem
+solving and app concept design project for interns hosted at
+[ORGANIZATION_NAME], a [BRIEF_DESCRIPTION_OF_ORG]. Follow the
+structure of the attached scenario template but tailor it to real
+challenges at this organization. No coding is required.
+&#60;/ROLE_AND_GOAL&#62;
+
+&#60;STEPS&#62;
+1. Write a company background paragraph (3–5 sentences)
+2. Based on these known pain points: [DESCRIBE_1_2_PAIN_POINTS],
+   generate 2–3 example problem areas interns could investigate
+3. Write an intern mission statement (2–3 sentences)
+4. Create a team roles table (4–5 roles) for [NUMBER_OF_INTERNS] interns
+5. Describe the research approach: staff interviews, observation,
+   simple surveys — what interns will actually do week by week
+6. List solution output options: app concept, workflow tool,
+   communication system, dashboard — and the design tools to use
+7. Create a 6-week project structure table:
+   - Weeks 1–2: Explore (observe, identify challenges, assign roles)
+   - Weeks 3–4: Build (interview staff, map workflow, design concept)
+   - Week 5: Apply (refine concept, before/after comparison, build deck)
+   - Week 6: Launch + Reflect (present to leadership, evaluation)
+8. List 5–6 expected final deliverables
+9. List 6–8 key learning outcomes as skill tags
+&#60;/STEPS&#62;
+
+&#60;OUTPUT&#62;
+Format the response to match the attached scenario template.
+Tools available: [LIST_TOOLS_AVAILABLE]
+Note: Interns are NOT expected to build a working app.
+A concept, wireframe, or prototype is sufficient.
+No coding skills required. Interns work 25 hrs/week.
+&#60;/OUTPUT&#62;
+
+&#60;EVALUATION&#62;
+Before using: verify problems are appropriate for high school
+students to investigate, research methods are accessible, solution
+does not require coding, concept/wireframe is clearly the
+deliverable (not a working app), each week has a clear deliverable.
+&#60;/EVALUATION&#62;</div>
+          </div>
+        </div>
+
+        <!-- WILDCARD -->
+        <div class="prompt-item">
+          <div class="prompt-hd" onclick="togglePrompt(this)" style="background:#0a2540;">
+            🃏 &nbsp;Wildcard — Build an Original Scenario<span class="chevron">▼</span>
+          </div>
+          <div class="prompt-body">
+            <p style="font-size:13px;margin-bottom:12px;color:#555;">Use this if none of the four scenarios fit your site. This prompt generates an entirely original internship scenario using the playbook's structure.</p>
+            <h4 style="font-size:13px;font-weight:800;color:var(--orange);text-transform:uppercase;margin-bottom:10px;">Before You Start — Fill These In First</h4>
+            <ul class="prep-list">
+              <li><strong>1.</strong> Your organization's name and what it does (2–3 sentences)</li>
+              <li><strong>2.</strong> What kind of project you're imagining — be as specific or general as you want. ("I want them to help us build our social media presence" or "I want them to analyze our customer data" or "I'm not sure but they should learn about marketing")</li>
+              <li><strong>3.</strong> Skills or experiences you want interns to walk away with (technical and/or professional)</li>
+              <li><strong>4.</strong> Every tool interns will have access to</li>
+              <li><strong>5.</strong> How many interns you're hosting (1–5)</li>
+            </ul>
+            <h4 style="font-size:13px;font-weight:800;color:var(--orange);text-transform:uppercase;margin:14px 0 8px;">The Prompt — Copy, Fill In, Run</h4>
+            <div class="prompt-box" id="prompt-wild"><button class="copy-btn" onclick="copyPrompt('prompt-wild',this)">Copy</button>&#60;ROLE_AND_GOAL&#62;
+You are an experienced internship designer who creates structured,
+skills-driven work-based learning experiences for high school
+students. Your task is to design an original 6-week internship
+project for interns hosted at [ORGANIZATION_NAME],
+a [BRIEF_DESCRIPTION_OF_ORG]. Follow the same structure and
+format as the attached scenario template but create an entirely
+new scenario tailored to this organization.
+&#60;/ROLE_AND_GOAL&#62;
+
+&#60;STEPS&#62;
+1. Based on the project idea below, design a 6-week internship
+   scenario with a clear narrative, team roles, and weekly structure.
+   Project idea: [DESCRIBE_WHAT_YOU_WANT_INTERNS_TO_WORK_ON]
+   Desired skills/outcomes: [DESCRIBE_SKILLS_OR_EXPERIENCES]
+2. Write a company background paragraph (3–5 sentences)
+3. Write a challenge framing the project as a real problem the
+   organization needs help solving
+4. Write an intern mission statement (2–3 sentences)
+5. Create a team roles table (4–5 roles) for [NUMBER_OF_INTERNS] interns
+6. If the project involves data, describe a sample dataset.
+   If not, describe the key resources or materials interns will use.
+7. Create a 6-week project structure table:
+   - Weeks 1–2: Explore (onboarding, learning, initial research)
+   - Weeks 3–4: Build (core project work, iteration, feedback)
+   - Week 5: Apply (finalize deliverables, build presentation)
+   - Week 6: Launch + Reflect (present to leadership, evaluation)
+8. List 5–6 expected final deliverables
+9. List 6–8 key learning outcomes as skill tags
+10. Write an example outcome showing the project's impact
+&#60;/STEPS&#62;
+
+&#60;OUTPUT&#62;
+Format the response to match the attached scenario template.
+Tools available: [LIST_TOOLS_AVAILABLE]
+Note: Interns work 25 hrs/week. Final presentation is 15–20 min.
+Project must be achievable for ages 16–21 with no prior
+professional experience.
+&#60;/OUTPUT&#62;
+
+&#60;EVALUATION&#62;
+Before using: verify the project is realistic in 6 weeks at
+25 hrs/week, produces something tangible and presentable,
+each week has a clear deliverable, it reads like a real workplace
+project (not a classroom assignment), no sensitive systems accessed.
+&#60;/EVALUATION&#62;</div>
+          </div>
+        </div>
+
+      </div><!-- end prompt-accordion -->
+    </div>
+
+    <!-- IMAGE: Students presenting — between prompts and implementation -->
+    <img class="photo-break" src="assets/photos/Northwell%20Photos/FRNYC%20WK%205-09.jpg" alt="Students presenting work" onerror="this.style.display='none'">
+
+    <!-- ── STEP 6: IMPLEMENTATION ── -->
+    <div>
+      <div class="sec-eyebrow">Step 6 — Transfer</div>
+      <h3 class="sec-h1" style="font-size:22px;">Move It Into the <span>Learning Template</span></h3>
+      <div class="sec-bar"></div>
+      <p class="sec-intro">Once your AI output is validated and edited, transfer it into the Technical Skills Learning Template. This is the document your intern team, supervisor, and coordinator will all work from throughout the 6 weeks.</p>
+
+      <div class="transfer-steps">
+        <div class="transfer-step">
+          <p><strong>Review the AI output against your "Before You Start" answers.</strong> Make sure nothing feels generic or disconnected from your actual organization. If something reads like it could apply to any company, rewrite it to be specific.</p>
+        </div>
+        <div class="transfer-step">
+          <p><strong>Copy the 6-week structure table into the Learning Template.</strong> This becomes the official project plan. Adjust week-by-week activities based on your actual schedule and team availability.</p>
+        </div>
+        <div class="transfer-step">
+          <p><strong>Add the team roles to the Learning Template's roles section.</strong> Assign each intern their role before Day 1. If you have fewer than 5 interns, combine roles or adjust responsibilities.</p>
+        </div>
+        <div class="transfer-step">
+          <p><strong>Copy the final deliverables list into the Week 6 section.</strong> These become the checklist your intern team works toward all program. Make sure every deliverable is visible to interns from Day 1.</p>
+        </div>
+        <div class="transfer-step">
+          <p><strong>Share the completed Learning Template with your program coordinator</strong> before the internship starts. They'll confirm it meets DYCD compliance requirements and flag anything that needs adjustment.</p>
+        </div>
+      </div>
+
+      <div class="callout-orange" style="margin-top:16px;">
+        <strong>📋 Download the Technical Skills Learning Template</strong> from your program coordinator or DYCD program portal. The template is designed to pair with these AI-generated scenarios — do not create a new document from scratch.
+      </div>
+    </div>
+
+    <!-- ── EMPLOYER REVIEW CHECKLIST ── -->
+    <div style="margin-top:36px;">
+      <div class="sec-eyebrow">Final Step</div>
+      <h3 class="sec-h1" style="font-size:22px;">Employer Review <span>Checklist</span></h3>
+      <div class="sec-bar"></div>
+      <p class="sec-intro">Before you finalize any AI-generated scenario, run it through this checklist. If you can't check every box, revise until you can. A scenario that passes this checklist is ready to use.</p>
+
+      <div class="checklist-grid">
+        <div class="cl-group">
+          <h5>Scope &amp; Realism</h5>
+          <div class="cl-item"><div class="cl-box"></div>The project is completable in 6 weeks at 25 hours/week</div>
+          <div class="cl-item"><div class="cl-box"></div>A high school student (16–21, no prior experience) could do this work</div>
+          <div class="cl-item"><div class="cl-box"></div>Week 1 is onboarding-focused — not jumping straight into hard tasks</div>
+          <div class="cl-item"><div class="cl-box"></div>Week 6 includes a real presentation to actual leadership (not just a peer review)</div>
+        </div>
+        <div class="cl-group">
+          <h5>Deliverables</h5>
+          <div class="cl-item"><div class="cl-box"></div>Every week has at least one visible deliverable</div>
+          <div class="cl-item"><div class="cl-box"></div>The Week 5 and Week 6 deliverables match what's listed in the final deliverables section</div>
+          <div class="cl-item"><div class="cl-box"></div>The final deliverable is something tangible that can be shown to leadership</div>
+          <div class="cl-item"><div class="cl-box"></div>No deliverable requires access to real systems, sensitive data, or production tools</div>
+        </div>
+        <div class="cl-group">
+          <h5>Safety &amp; Compliance</h5>
+          <div class="cl-item"><div class="cl-box"></div>All data interns work with is simulated, sample, or anonymized</div>
+          <div class="cl-item"><div class="cl-box"></div>No intern role requires accessing admin systems, real user accounts, or confidential records</div>
+          <div class="cl-item"><div class="cl-box"></div>Every tool listed is free-tier accessible — no paid subscriptions required</div>
+          <div class="cl-item"><div class="cl-box"></div>The scenario is appropriate for the DYCD SYEP program context</div>
+        </div>
+        <div class="cl-group">
+          <h5>Clarity &amp; Language</h5>
+          <div class="cl-item"><div class="cl-box"></div>No jargon is used without a plain-language explanation alongside it</div>
+          <div class="cl-item"><div class="cl-box"></div>The scenario reads like a real workplace project — not a school assignment</div>
+          <div class="cl-item"><div class="cl-box"></div>The company background and challenge feel specific to your organization</div>
+          <div class="cl-item"><div class="cl-box"></div>Team roles are clearly defined and distinct from each other</div>
+        </div>
+      </div>
+
+      <div class="callout" style="margin-top:16px;">
+        <strong>✅ All boxes checked?</strong> Your scenario is ready. Transfer it into the Technical Skills Learning Template and share with your program coordinator before Day 1.
+      </div>
+    </div>
+
+    <!-- PARTNER LOGOS BAR at section footer -->
+    <div class="partner-logos-bar" style="margin-top:40px;">
+      <span>Powered by</span>
+      <img src="assets/DYCD%20Official%20Logo_White_Orange%20(2).png" alt="DYCD" style="filter:none;height:30px;opacity:1;" onerror="this.style.display='none'">
+      <span style="color:var(--mid);">×</span>
+      <img src="assets/Student%20Pathways%20Logos/PNG/NYCPS-Pathways-logo-color.png" alt="NYCPS Student Pathways" style="filter:none;height:28px;opacity:1;" onerror="this.style.display='none'">
+    </div>
+
+  </section>
+
 </main>
 
 <!-- FOOTER -->
@@ -1465,6 +2205,25 @@ function toggleAccordion(hd){
   body.classList.toggle('open',!isOpen);
 }
 
+// ── PROMPT ACCORDION ──
+function togglePrompt(hd){
+  const body=hd.nextElementSibling;
+  const isOpen=hd.classList.contains('open');
+  hd.classList.toggle('open',!isOpen);
+  body.classList.toggle('open',!isOpen);
+}
+
+// ── COPY PROMPT ──
+function copyPrompt(id,btn){
+  const box=document.getElementById(id);
+  const text=box.innerText.replace(/^Copy$/m,'').trim();
+  navigator.clipboard.writeText(text).then(()=>{
+    btn.textContent='Copied!';
+    btn.classList.add('copied');
+    setTimeout(()=>{ btn.textContent='Copy'; btn.classList.remove('copied'); },2000);
+  });
+}
+
 // ── RATING ──
 function rateSkill(groupId,val){
   const btns=document.getElementById(groupId).querySelectorAll('.rating-btn');
@@ -1474,7 +2233,7 @@ function rateSkill(groupId,val){
 }
 
 // ── SCROLL SPY ──
-const sectionIds=['why-host','portrait','journey','schedule','skills','professional','supervision','compliance','checkin','scenario-a','scenario-b','scenario-c','scenario-d'];
+const sectionIds=['why-host','portrait','journey','schedule','skills','professional','supervision','compliance','checkin','scenario-a','scenario-b','scenario-c','scenario-d','ai-builder'];
 window.addEventListener('scroll',()=>{
   const y=window.scrollY+120;
   // scroll-to-top visibility
