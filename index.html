@@ -30,7 +30,15 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--light);color:var(-
   box-shadow:0 2px 16px rgba(0,0,0,0.3);
 }
 #topbar-left{display:flex;align-items:center;gap:14px;}
-#topbar-logo{width:32px;height:32px;background:var(--orange);border-radius:4px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;color:white;letter-spacing:-1px;flex-shrink:0;}
+#topbar-logo{height:30px;width:auto;display:flex;align-items:center;flex-shrink:0;}
+#topbar-logo img{height:30px;width:auto;object-fit:contain;}
+#topbar-dycd{height:26px;width:auto;display:flex;align-items:center;flex-shrink:0;opacity:0.9;}
+#topbar-dycd img{height:26px;width:auto;object-fit:contain;}
+#topbar-divider{width:1px;height:22px;background:rgba(255,255,255,0.25);margin:0 2px;flex-shrink:0;}
+.sidebar-logos{display:flex;align-items:center;gap:10px;padding:14px 20px 10px;border-bottom:1px solid rgba(255,255,255,0.08);margin-bottom:4px;flex-wrap:wrap;}
+.sidebar-logos img{object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;}
+.sidebar-logos img.sp-logo{height:22px;}
+.sidebar-logos img.dycd-logo-sm{height:18px;}
 #topbar-title{font-size:13px;font-weight:700;color:var(--white);letter-spacing:0.3px;}
 #topbar-title span{color:var(--yellow);}
 #topbar-right{display:flex;gap:10px;}
@@ -535,8 +543,10 @@ tr:hover td{background:#edf2fb;}
 <nav id="topbar">
   <div id="topbar-left">
     <button id="menu-toggle" onclick="toggleSidebar()">☰</button>
-    <div id="topbar-logo">TI</div>
-    <div id="topbar-title">Tech Internship Framework &nbsp;<span>SYEP</span></div>
+    <div id="topbar-dycd"><img src="assets/DYCD%20Official%20Logo_White_Orange%20(2).png" alt="DYCD"></div>
+    <div id="topbar-divider"></div>
+    <div id="topbar-logo"><img src="assets/Student%20Pathways%20Logos/PNG/NYCPS-Pathways-logo-white.png" alt="NYCPS Student Pathways"></div>
+    <div id="topbar-title" style="display:none;">Tech Internship Framework &nbsp;<span>SYEP</span></div>
   </div>
   <div id="topbar-right">
     <a class="topbar-btn secondary" href="https://github.com/mmanipakone/dycd-tech-internship/releases/latest/download/TechInternship_revised0504.pdf" download>⬇ Download PDF</a>
@@ -547,6 +557,10 @@ tr:hover td{background:#edf2fb;}
 
 <!-- SIDEBAR -->
 <aside id="sidebar">
+  <div class="sidebar-logos">
+    <img class="sp-logo" src="assets/Student%20Pathways%20Logos/PNG/NYCPS-Pathways-logo-white.png" alt="NYCPS Student Pathways">
+    <img class="dycd-logo-sm" src="assets/DYCD%20Official%20Logo_White.png" alt="DYCD">
+  </div>
   <div class="nav-section-label">Framework</div>
   <a class="nav-item active" href="#why-host" onclick="setActive(this)">
     <div class="nav-num">1</div><span class="nav-label">Why Host a Tech Intern</span>
@@ -596,9 +610,9 @@ tr:hover td{background:#edf2fb;}
 
 <!-- HERO -->
 <div id="hero">
-  <img class="hero-photo" src="assets/photos/241116_jca_inspiredu_031_54365367455_l.jpg" alt="Interns at work" onerror="this.style.display='none'">
+  <img class="hero-photo" src="assets/photos/Northwell%20Photos/FRNYC%20WK%202-22.jpg" alt="Interns at work" onerror="this.style.display='none'">
   <div class="hero-overlay">
-    <div class="hero-badge">DYCD × Urban Assembly × The Knowledge House</div>
+    <div class="hero-badge">DYCD × NYCPS Student Pathways</div>
     <h1 class="hero-h1">High School Tech<br>Internship Framework</h1>
     <p class="hero-sub">Summer Youth Employment Program — SYEP</p>
     <div class="hero-divider"></div>
@@ -643,8 +657,8 @@ tr:hover td{background:#edf2fb;}
       </div>
       <div>
         <div class="photo-grid photo-grid-2">
-          <img src="assets/photos/241116_jca_inspiredu_056_54365366035_l.jpg" alt="Industry Board Meeting" onerror="this.style.display='none'">
-          <img src="assets/photos/241116_jca_inspiredu_062_54365173364_l.jpg" alt="Students" onerror="this.style.display='none'">
+          <img src="assets/photos/Northwell%20Photos/FRNYC%20WK%204-29.jpg" alt="Interns collaborating" onerror="this.style.display='none'">
+          <img src="assets/photos/Photos%20for%20TKH/DSC_0975.jpg" alt="Students at work" onerror="this.style.display='none'">
         </div>
         <div class="callout" style="margin-top:12px;">
           <strong>⚡ Impact Statement:</strong> Each intern you host represents a NYC student gaining career-ready tech skills that can change their economic trajectory.
@@ -695,9 +709,9 @@ tr:hover td{background:#edf2fb;}
     </div>
 
     <div class="photo-grid photo-grid-3" style="margin-top:18px;">
-      <img src="assets/photos/2024_11_15_inspiredu_ted_knowledge_house_00026_54365362960_l.jpg" alt="Pfizer Career Event" onerror="this.style.display='none'">
-      <img src="assets/photos/241116_jca_inspiredu_1018_54364972816_l.jpg" alt="Alumni Panel" onerror="this.style.display='none'">
-      <img src="assets/photos/241116_jca_inspiredu_1042_54365363665_l.jpg" alt="Winter Showcase" onerror="this.style.display='none'">
+      <img src="assets/photos/Northwell%20Photos/FRNYC%20WK%205-09.jpg" alt="Students presenting" onerror="this.style.display='none'">
+      <img src="assets/photos/Photos%20for%20TKH/DSC_1715.jpg" alt="Intern session" onerror="this.style.display='none'">
+      <img src="assets/photos/Northwell%20Photos/FRNYC%20WK%207-01.jpg" alt="Showcase event" onerror="this.style.display='none'">
     </div>
   </section>
 
@@ -2176,9 +2190,9 @@ project (not a classroom assignment), no sensitive systems accessed.
 
 <!-- FOOTER -->
 <footer id="footer">
-  <strong>NYC Department of Youth &amp; Community Development</strong> × Urban Assembly × The Knowledge House<br>
+  <strong>NYC Department of Youth &amp; Community Development</strong> × NYCPS Student Pathways<br>
   High School Tech Internship Framework — SYEP — Confidential<br>
-  <span style="font-size:11px;">dycd.nyc.gov &nbsp;|&nbsp; urbanassembly.org &nbsp;|&nbsp; theknowledgehouse.org</span>
+  <span style="font-size:11px;">dycd.nyc.gov</span>
 </footer>
 
 <!-- SCROLL TO TOP -->
