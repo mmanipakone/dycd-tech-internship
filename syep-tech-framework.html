@@ -32,12 +32,11 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--light);color:var(-
 #topbar-left{display:flex;align-items:center;gap:14px;}
 #topbar-logo{height:30px;width:auto;display:flex;align-items:center;flex-shrink:0;}
 #topbar-logo img{height:30px;width:auto;object-fit:contain;}
-.dycd-pill{background:white;border-radius:3px;padding:2px 7px;display:inline-flex;align-items:center;flex-shrink:0;}
-.dycd-pill img{height:22px;width:auto;object-fit:contain;}
-.dycd-pill.sm img{height:18px;}
+.dycd-logo-white{height:22px;width:auto;object-fit:contain;opacity:0.9;flex-shrink:0;filter:none;}
 .sidebar-logos{display:flex;align-items:center;gap:10px;padding:14px 20px 10px;border-bottom:1px solid rgba(255,255,255,0.08);margin-bottom:4px;flex-wrap:wrap;}
 .sidebar-logos img{object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;}
 .sidebar-logos img.sp-logo{height:22px;}
+.sidebar-logos img.dycd-logo-white{filter:none;height:20px;}
 #topbar-title{font-size:13px;font-weight:700;color:var(--white);letter-spacing:0.3px;}
 #topbar-title span{color:var(--yellow);}
 #topbar-right{display:flex;gap:10px;}
@@ -112,8 +111,8 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--light);color:var(-
 .hero-overlay{
   position:absolute;top:0;left:0;right:0;bottom:0;
   background:linear-gradient(135deg,rgba(10,37,64,0.95) 0%,rgba(15,52,96,0.7) 100%);
-  display:flex;flex-direction:column;justify-content:center;
-  padding:60px 60px 50px;
+  display:flex;flex-direction:column;justify-content:flex-start;
+  padding:80px 60px 50px;
 }
 .hero-badge{
   display:inline-block;
@@ -546,9 +545,9 @@ tr:hover td{background:#edf2fb;}
 <nav id="topbar">
   <div id="topbar-left">
     <button id="menu-toggle" onclick="toggleSidebar()">☰</button>
-    <div id="topbar-logo"><img src="assets/Student%20Pathways%20Logos/PNG/NYCPS-Pathways-logo-white.png" alt="NYCPS Student Pathways"></div>
+    <div id="topbar-logo"><img src="assets/Student%20Pathways%20Logos/PNG/NYCPS-Pathways-logo-white.png" alt="New York City Public Schools Student Pathways"></div>
     <div style="width:1px;height:22px;background:rgba(255,255,255,0.25);margin:0 2px;flex-shrink:0;"></div>
-    <div class="dycd-pill"><img src="assets/DYCD-primary-logo-colored.png" alt="DYCD — The Department of Youth &amp; Community Development"></div>
+    <img class="dycd-logo-white" style="height:26px;" src="assets/DYCD%20Official%20Logo_White.png" alt="DYCD — The Department of Youth &amp; Community Development">
     <div id="topbar-title" style="display:none;">Tech Internship Framework &nbsp;<span>SYEP</span></div>
   </div>
   <div id="topbar-right">
@@ -561,8 +560,8 @@ tr:hover td{background:#edf2fb;}
 <!-- SIDEBAR -->
 <aside id="sidebar">
   <div class="sidebar-logos">
-    <img class="sp-logo" src="assets/Student%20Pathways%20Logos/PNG/NYCPS-Pathways-logo-white.png" alt="NYCPS Student Pathways">
-    <div class="dycd-pill sm"><img src="assets/DYCD-primary-logo-colored.png" alt="DYCD"></div>
+    <img class="sp-logo" src="assets/Student%20Pathways%20Logos/PNG/NYCPS-Pathways-logo-white.png" alt="New York City Public Schools Student Pathways">
+    <img class="dycd-logo-white" src="assets/DYCD%20Official%20Logo_White.png" alt="DYCD">
   </div>
   <div class="nav-section-label">Framework</div>
   <a class="nav-item active" href="#why-host" onclick="setActive(this)">
@@ -615,7 +614,7 @@ tr:hover td{background:#edf2fb;}
 <div id="hero">
   <img class="hero-photo" src="assets/photos/Photos%20for%20TKH/DSC_3108.jpg" alt="Interns at work" onerror="this.style.display='none'">
   <div class="hero-overlay">
-    <div class="hero-badge">NYC Student Pathways — SYEP</div>
+    <div class="hero-badge">New York City Public Schools — SYEP</div>
     <h1 class="hero-h1">High School Tech<br>Internship Framework</h1>
     <p class="hero-sub">Summer Youth Employment Program — SYEP</p>
     <div class="hero-divider"></div>
@@ -1212,8 +1211,8 @@ tr:hover td{background:#edf2fb;}
       <div class="scenario-title">Cybersecurity Tabletop Investigation + Friction Log</div>
       <div class="scenario-sub">Interns act as a junior cybersecurity task force analyzing suspicious login activity and documenting incident response recommendations.</div>
       <div class="scenario-logos">
-        <img class="sc-sp" src="assets/Student%20Pathways%20Logos/PNG/NYCPS-Pathways-logo-white.png" alt="NYCPS Student Pathways">
-        <div class="dycd-pill sm"><img src="assets/DYCD-primary-logo-colored.png" alt="DYCD"></div>
+        <img class="sc-sp" src="assets/Student%20Pathways%20Logos/PNG/NYCPS-Pathways-logo-white.png" alt="New York City Public Schools Student Pathways">
+        <img src="assets/DYCD%20Official%20Logo_White.png" alt="DYCD" style="height:20px;object-fit:contain;opacity:0.9;filter:none;">
       </div>
     </div>
     <img class="section-photo" src="assets/photos/Photos%20for%20TKH/DSC_4742.jpg" alt="Students analyzing data" onerror="this.style.display='none'">
@@ -1311,8 +1310,8 @@ tr:hover td{background:#edf2fb;}
       <div class="scenario-title">Data Insights Dashboard</div>
       <div class="scenario-sub">Interns analyze order and delivery data to build a visual dashboard surfacing key business insights for leadership decision-making.</div>
       <div class="scenario-logos">
-        <img class="sc-sp" src="assets/Student%20Pathways%20Logos/PNG/NYCPS-Pathways-logo-white.png" alt="NYCPS Student Pathways">
-        <div class="dycd-pill sm"><img src="assets/DYCD-primary-logo-colored.png" alt="DYCD"></div>
+        <img class="sc-sp" src="assets/Student%20Pathways%20Logos/PNG/NYCPS-Pathways-logo-white.png" alt="New York City Public Schools Student Pathways">
+        <img src="assets/DYCD%20Official%20Logo_White.png" alt="DYCD" style="height:20px;object-fit:contain;opacity:0.9;filter:none;">
       </div>
     </div>
     <img class="section-photo" src="assets/photos/Photos%20for%20TKH/DSC_1756.jpg" alt="Students working with data" onerror="this.style.display='none'">
@@ -1414,8 +1413,8 @@ tr:hover td{background:#edf2fb;}
       <div class="scenario-title">Workflow Automation Prototype</div>
       <div class="scenario-sub">Interns map a 5-step manual process, identify bottlenecks, and build an automation prototype using no-code/low-code tools — measuring time savings.</div>
       <div class="scenario-logos">
-        <img class="sc-sp" src="assets/Student%20Pathways%20Logos/PNG/NYCPS-Pathways-logo-white.png" alt="NYCPS Student Pathways">
-        <div class="dycd-pill sm"><img src="assets/DYCD-primary-logo-colored.png" alt="DYCD"></div>
+        <img class="sc-sp" src="assets/Student%20Pathways%20Logos/PNG/NYCPS-Pathways-logo-white.png" alt="New York City Public Schools Student Pathways">
+        <img src="assets/DYCD%20Official%20Logo_White.png" alt="DYCD" style="height:20px;object-fit:contain;opacity:0.9;filter:none;">
       </div>
     </div>
     <img class="section-photo" src="assets/photos/Photos%20for%20TKH/DSC_2992.jpg" alt="Students working on automation" onerror="this.style.display='none'">
@@ -1525,8 +1524,8 @@ tr:hover td{background:#edf2fb;}
       <div class="scenario-title">Workplace Problem Solving &amp; App Concept Design</div>
       <div class="scenario-sub">Interns research a real workplace challenge, gather input from staff or customers, and design a technology-based solution. No coding required.</div>
       <div class="scenario-logos">
-        <img class="sc-sp" src="assets/Student%20Pathways%20Logos/PNG/NYCPS-Pathways-logo-white.png" alt="NYCPS Student Pathways">
-        <div class="dycd-pill sm"><img src="assets/DYCD-primary-logo-colored.png" alt="DYCD"></div>
+        <img class="sc-sp" src="assets/Student%20Pathways%20Logos/PNG/NYCPS-Pathways-logo-white.png" alt="New York City Public Schools Student Pathways">
+        <img src="assets/DYCD%20Official%20Logo_White.png" alt="DYCD" style="height:20px;object-fit:contain;opacity:0.9;filter:none;">
       </div>
     </div>
     <img class="section-photo" src="assets/photos/Photos%20for%20TKH/DSC_5011-2.jpg" alt="Students solving workplace problems" onerror="this.style.display='none'">
@@ -1636,8 +1635,8 @@ tr:hover td{background:#edf2fb;}
         <p>AI tools can take you from a vague project idea to a fully structured, 6-week internship experience in under an hour. This section shows you exactly how — step by step.</p>
       </div>
       <div class="logo-row">
-        <img src="assets/Student%20Pathways%20Logos/PNG/NYCPS-Pathways-logo-white.png" alt="NYCPS Student Pathways" onerror="this.style.display='none'">
-        <div class="dycd-pill"><img src="assets/DYCD-primary-logo-colored.png" alt="DYCD" onerror="this.style.display='none'"></div>
+        <img src="assets/Student%20Pathways%20Logos/PNG/NYCPS-Pathways-logo-white.png" alt="New York City Public Schools Student Pathways" onerror="this.style.display='none'">
+        <img src="assets/DYCD%20Official%20Logo_White.png" alt="DYCD" style="height:30px;object-fit:contain;opacity:0.9;filter:none;" onerror="this.style.display='none'">
       </div>
     </div>
 
