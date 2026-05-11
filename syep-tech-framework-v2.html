@@ -1668,6 +1668,12 @@ tr:hover td{background:#edf2fb;}
         <div class="picker-desc">Interns research a real workplace challenge and design a technology-based solution concept. No coding required.</div>
         <div class="picker-fit">Good fit if: you're not sure what to assign — this works for any industry or org type</div>
       </div>
+      <div class="picker-card wildcard">
+        <div class="picker-icon">🃏</div>
+        <div class="picker-title">Wildcard — Build Your Own</div>
+        <div class="picker-desc">None of the four scenarios fit your site? Use the wildcard prompt to generate an entirely original scenario using the playbook's structure.</div>
+        <div class="picker-fit">Good fit if: you have a specific project in mind that doesn't map to the above</div>
+      </div>
     </div>
 
     <div class="callout-yellow" style="margin-top:8px;">
@@ -2047,6 +2053,71 @@ Before using: verify problems are appropriate for high school
 students to investigate, research methods are accessible, solution
 does not require coding, concept/wireframe is clearly the
 deliverable (not a working app), each week has a clear deliverable.
+&#60;/EVALUATION&#62;</div>
+          </div>
+        </div>
+
+        <!-- WILDCARD -->
+        <div class="prompt-item">
+          <div class="prompt-hd" onclick="togglePrompt(this)" style="background:#0a2540;">
+            🃏 &nbsp;Wildcard — Build an Original Scenario<span class="chevron">▼</span>
+          </div>
+          <div class="prompt-body">
+            <p style="font-size:13px;margin-bottom:12px;color:#555;">Use this if none of the four scenarios fit your site. This prompt generates an entirely original internship scenario using the playbook's structure.</p>
+            <h4 style="font-size:13px;font-weight:800;color:var(--orange);margin-bottom:10px;">Before You Start — Fill These In First</h4>
+            <ul class="prep-list">
+              <li><strong>1.</strong> Your organization's name and what it does (2–3 sentences)</li>
+              <li><strong>2.</strong> What kind of project you're imagining — be as specific or general as you want. ("I want them to help us build our social media presence" or "I want them to analyze our customer data" or "I'm not sure but they should learn about marketing")</li>
+              <li><strong>3.</strong> Skills or experiences you want interns to walk away with (technical and/or professional)</li>
+              <li><strong>4.</strong> Every tool interns will have access to</li>
+              <li><strong>5.</strong> How many interns you're hosting (1–5)</li>
+            </ul>
+            <h4 style="font-size:13px;font-weight:800;color:var(--orange);margin:14px 0 8px;">The Prompt — Copy, Fill In, Run</h4>
+            <div class="prompt-box" id="prompt-wild"><button class="copy-btn" onclick="copyPrompt('prompt-wild',this)">Copy</button>&#60;ROLE_AND_GOAL&#62;
+You are an experienced internship designer who creates structured,
+skills-driven work-based learning experiences for high school
+students. Your task is to design an original 6-week internship
+project for interns hosted at [ORGANIZATION_NAME],
+a [BRIEF_DESCRIPTION_OF_ORG]. Follow the same structure and
+format as the attached scenario template but create an entirely
+new scenario tailored to this organization.
+&#60;/ROLE_AND_GOAL&#62;
+
+&#60;STEPS&#62;
+1. Based on the project idea below, design a 6-week internship
+   scenario with a clear narrative, team roles, and weekly structure.
+   Project idea: [DESCRIBE_WHAT_YOU_WANT_INTERNS_TO_WORK_ON]
+   Desired skills/outcomes: [DESCRIBE_SKILLS_OR_EXPERIENCES]
+2. Write a company background paragraph (3–5 sentences)
+3. Write a challenge framing the project as a real problem the
+   organization needs help solving
+4. Write an intern mission statement (2–3 sentences)
+5. Create a team roles table (4–5 roles) for [NUMBER_OF_INTERNS] interns
+6. If the project involves data, describe a sample dataset.
+   If not, describe the key resources or materials interns will use.
+7. Create a 6-week project structure table:
+   - Weeks 1–2: Explore (onboarding, learning, initial research)
+   - Weeks 3–4: Build (core project work, iteration, feedback)
+   - Week 5: Apply (finalize deliverables, build presentation)
+   - Week 6: Launch + Reflect (present to leadership, evaluation)
+8. List 5–6 expected final deliverables
+9. List 6–8 key learning outcomes as skill tags
+10. Write an example outcome showing the project's impact
+&#60;/STEPS&#62;
+
+&#60;OUTPUT&#62;
+Format the response to match the attached scenario template.
+Tools available: [LIST_TOOLS_AVAILABLE]
+Note: Interns work 25 hrs/week. Final presentation is 15–20 min.
+Project must be achievable for ages 16–21 with no prior
+professional experience.
+&#60;/OUTPUT&#62;
+
+&#60;EVALUATION&#62;
+Before using: verify the project is realistic in 6 weeks at
+25 hrs/week, produces something tangible and presentable,
+each week has a clear deliverable, it reads like a real workplace
+project (not a classroom assignment), no sensitive systems accessed.
 &#60;/EVALUATION&#62;</div>
           </div>
         </div>
