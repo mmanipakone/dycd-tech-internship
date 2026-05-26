@@ -234,7 +234,7 @@ tr:hover td{background:#edf2fb;}
 .week-timeline .wk-label{background:var(--orange);color:white;font-weight:800;text-align:center;}
 .week-timeline td{background:#0e2f54;color:rgba(255,255,255,0.85);border:1px solid rgba(255,255,255,0.07);}
 .week-timeline tr:nth-child(even) td{background:#0b2644;}
-.week-timeline tr:hover td{background:rgba(255,255,255,0.08);}
+.week-timeline tr:hover td{background:rgba(255,255,255,0.08)!important;}
 
 /* ── ACCORDION ── */
 .accordion{margin:10px 0;}
@@ -537,6 +537,12 @@ tr:hover td{background:#edf2fb;}
   #main,#hero{margin-left:0;padding-top:0;}
   .section{padding:20px 0;border-bottom:1px solid #eee;}
   .accordion-body{display:block!important;}
+  /* Check-in only print */
+  body.print-checkin #hero{display:none!important;}
+  body.print-checkin #main>.section:not(#checkin){display:none!important;}
+  body.print-checkin #main{margin-left:0;padding-top:20px;}
+  body.print-checkin .print-btn{display:none!important;}
+  body.print-checkin .section-photo{display:none!important;}
 }
 </style>
 </head>
@@ -600,13 +606,16 @@ tr:hover td{background:#edf2fb;}
   <a class="nav-item" href="#scenario-d" onclick="setActive(this)">
     <div class="nav-num scenario">D</div><span class="nav-label">Workplace Problem Solving</span>
   </a>
-  <div class="nav-section-label" style="margin-top:10px;">AI Tools</div>
+  <div class="nav-section-label" style="margin-top:10px;">AI for Internships</div>
   <a class="nav-item" href="#ai-builder" onclick="setActive(this)">
     <div class="nav-num" style="background:var(--yellow);color:var(--navy);">⚡</div><span class="nav-label">Build With AI</span>
   </a>
   <div class="nav-section-label" style="margin-top:10px;">Resources</div>
   <a class="nav-item" href="https://sites.google.com/theknowledgehouse.org/dycd-tech-employer-training/home" target="_blank" onclick="if(window.innerWidth<=768) document.getElementById('sidebar').classList.remove('open')">
     <div class="nav-num" style="background:var(--yellow);color:var(--navy);">🔗</div><span class="nav-label">SYEP Tech Internship Resource Hub</span>
+  </a>
+  <a class="nav-item" href="https://dycd.jotform.com/form/techfeedback" target="_blank" onclick="if(window.innerWidth<=768) document.getElementById('sidebar').classList.remove('open')">
+    <div class="nav-num" style="background:var(--orange);color:white;">✦</div><span class="nav-label">Give Feedback</span>
   </a>
 </aside>
 
@@ -1198,7 +1207,7 @@ tr:hover td{background:#edf2fb;}
         <div class="field-group"><textarea placeholder="Supervisor: Add your notes, observations, and action items here..."></textarea></div>
       </div>
 
-      <button class="print-btn" onclick="window.print()">🖨️ Print / Save This Check-In</button>
+      <button class="print-btn" onclick="printCheckin()">🖨️ Print / Save This Check-In</button>
     </div>
   </section>
 
@@ -2220,6 +2229,13 @@ project (not a classroom assignment), no sensitive systems accessed.
 <button id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">↑</button>
 
 <script>
+// ── PRINT CHECK-IN ONLY ──
+function printCheckin(){
+  document.body.classList.add('print-checkin');
+  window.print();
+  setTimeout(()=>document.body.classList.remove('print-checkin'),500);
+}
+
 // ── SIDEBAR TOGGLE (mobile) ──
 function toggleSidebar(){
   document.getElementById('sidebar').classList.toggle('open');
